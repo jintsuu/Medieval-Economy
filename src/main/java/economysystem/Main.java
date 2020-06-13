@@ -39,16 +39,14 @@ public final class Main extends JavaPlugin {
                 Player player = (Player) sender;
                 if (player.hasPermission("medievaleconomy.createcurrency")) {
 
-                    // if player's inventory has space
-                    if (!(player.getInventory().firstEmpty() == -1)) {
-                        addCurrencyToInventory(player);
-                        player.sendMessage(ChatColor.GREEN + "Currency received.");
-                        return true;
+                    if (args.length == 0) {
+                        addCurrencyToInventory(player, 1);
                     }
-                    else { // player's inventory is full
-                        player.sendMessage(ChatColor.RED + "Inventory full.");
-                        return false;
+                    else {
+                        addCurrencyToInventory(player, Integer.parseInt(args[0]));
                     }
+
+
                 }
             }
         }
@@ -56,16 +54,23 @@ public final class Main extends JavaPlugin {
         return false;
     }
 
-    public void addCurrencyToInventory(Player player) {
-        player.getInventory().addItem(getCurrency());
+    public void addCurrencyToInventory(Player player, int amount) {
+        // if player's inventory has space
+        if (!(player.getInventory().firstEmpty() == -1)) {
+            player.getInventory().addItem(getCurrency(amount));
+            player.sendMessage(ChatColor.GREEN + "" + amount + " ncurrency received.");
+        }
+        else { // player's inventory is full
+            player.sendMessage(ChatColor.RED + "Inventory full.");
+        }
     }
 
-    public void removeCurrencyToInventory(Player player) {
-        player.getInventory().removeItem(getCurrency());
+    public void removeCurrencyToInventory(Player player, int amount) {
+        player.getInventory().removeItem(getCurrency(amount));
     }
 
-    public ItemStack getCurrency() {
-        ItemStack currencyItem = new ItemStack(Material.GOLD_INGOT);
+    public ItemStack getCurrency(int amount) {
+        ItemStack currencyItem = new ItemStack(Material.GOLD_INGOT, amount);
         ItemMeta meta = currencyItem.getItemMeta();
 
         meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Florin");
