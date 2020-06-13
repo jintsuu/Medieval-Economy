@@ -1,4 +1,9 @@
-name: Medieval-Economy
-version: ${project.version}
-main: kingdomprogrammers.medievaleconomy.MedievalEconomy
-api-version: 1.15.2
+name: MedievalSetHome
+version: "0.1"
+author: KingdomProgrammers
+main: sethomesystem.Main
+api-version: "1.15"
+
+commands:
+  home:
+  sethome:
