@@ -16,16 +16,20 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        System.out.println("Medieval Economy is enabling...");
 
 
 
+        System.out.println("Medieval Economy is enabled!");
     }
 
     @Override
     public void onDisable() {
+        System.out.println("Medieval Economy is disabling...");
 
 
 
+        System.out.println("Medieval Economy is disabled!");
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
