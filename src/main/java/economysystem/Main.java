@@ -46,7 +46,9 @@ public final class Main extends JavaPlugin {
                         addCurrencyToInventory(player, Integer.parseInt(args[0]));
                     }
 
-
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
                 }
             }
         }
