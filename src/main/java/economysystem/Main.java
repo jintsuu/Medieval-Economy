@@ -30,10 +30,10 @@ public final class Main extends JavaPlugin {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (label.equalsIgnoreCase("createflorin")) {
+        if (label.equalsIgnoreCase("createcurrency")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (player.hasPermission("medievaleconomy.getflorin")) {
+                if (player.hasPermission("medievaleconomy.createcurrency")) {
 
                     // if player's inventory has space
                     if (!(player.getInventory().firstEmpty() == -1)) {
