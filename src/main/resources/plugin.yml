@@ -5,4 +5,4 @@ main: economysystem.Main
 api-version: "1.15"
 
 commands:
-  createcurrency:
+  econ:
