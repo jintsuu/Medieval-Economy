@@ -39,8 +39,8 @@ public final class Main extends JavaPlugin {
 
                 if (args[0].equalsIgnoreCase("help")) {
                     if (sender instanceof Player) {
-                        Player player = (Player) sender;
-                        sendHelpMessage(player);
+                        sendHelpMessage((Player) sender);
+                        return true;
                     }
                 }
 
@@ -51,23 +51,31 @@ public final class Main extends JavaPlugin {
 
                             if (args.length == 1) {
                                 addCurrencyToInventory(player, 1);
+                                return true;
                             }
                             else {
                                 addCurrencyToInventory(player, Integer.parseInt(args[1]));
+                                return true;
                             }
 
                         }
                         else {
                             player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
+                            return false;
                         }
                     }
                     else {
                         System.out.println("You can't run this command from the console!");
+                        return false;
                     }
                 }
             }
             else {
-                // send help message
+                if (sender instanceof Player) {
+                    sendHelpMessage((Player) sender);
+                    return true;
+                }
+
             }
 
         }
