@@ -7,3 +7,5 @@ A plugin to make simulating economic systems easier in minecraft.
 
 # Versions
 -  0.1 Initial Build
+-  0.2 'Custom Currency' update
+-  0.3 'Admin Commands' update

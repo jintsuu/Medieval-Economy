@@ -30,14 +30,14 @@ public final class Main extends JavaPlugin {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (label.equalsIgnoreCase("getflorin")) {
+        if (label.equalsIgnoreCase("createflorin")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("medievaleconomy.getflorin")) {
 
                     // if player's inventory has space
                     if (!(player.getInventory().firstEmpty() == -1)) {
-                        player.getInventory().addItem(getCurrency());
+                        addCurrencyToInventory(player);
                         player.sendMessage(ChatColor.GREEN + "Currency received.");
                         return true;
                     }
@@ -50,6 +50,14 @@ public final class Main extends JavaPlugin {
         }
 
         return false;
+    }
+
+    public void addCurrencyToInventory(Player player) {
+        player.getInventory().addItem(getCurrency());
+    }
+
+    public void removeCurrencyToInventory(Player player) {
+        player.getInventory().removeItem(getCurrency());
     }
 
     public ItemStack getCurrency() {
