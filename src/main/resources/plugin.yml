@@ -1,0 +1,4 @@
+name: Medieval-Economy
+version: ${project.version}
+main: kingdomprogrammers.medievaleconomy.MedievalEconomy
+api-version: 1.15.2
