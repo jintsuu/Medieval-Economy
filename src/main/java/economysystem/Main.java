@@ -36,6 +36,14 @@ public final class Main extends JavaPlugin {
 
         if (label.equalsIgnoreCase("econ")) {
             if (args.length > 0) {
+
+                if (args[0].equalsIgnoreCase("help")) {
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+                        sendHelpMessage(player);
+                    }
+                }
+
                 if (args[0].equalsIgnoreCase("createcurrency")) {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
@@ -95,5 +103,12 @@ public final class Main extends JavaPlugin {
         currencyItem.setItemMeta(meta);
 
         return currencyItem;
+    }
+
+    public static void sendHelpMessage(Player player) {
+        player.sendMessage(ChatColor.AQUA + "/econ help - Show a helpful list of commands.");
+        if (player.hasPermission("medievaleconomy.createcurrency")) {
+            player.sendMessage(ChatColor.AQUA + "/econ createcurrency # - Bring more currency into the world.");
+        }
     }
 }
