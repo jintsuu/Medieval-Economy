@@ -34,23 +34,31 @@ public final class Main extends JavaPlugin {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (label.equalsIgnoreCase("createcurrency")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("medievaleconomy.createcurrency")) {
+        if (label.equalsIgnoreCase("econ")) {
+            if (args.length > 0) {
+                if (args[0].equalsIgnoreCase("createcurrency")) {
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+                        if (player.hasPermission("medievaleconomy.createcurrency")) {
 
-                    if (args.length == 0) {
-                        addCurrencyToInventory(player, 1);
-                    }
-                    else {
-                        addCurrencyToInventory(player, Integer.parseInt(args[0]));
-                    }
+                            if (args.length == 1) {
+                                addCurrencyToInventory(player, 1);
+                            }
+                            else {
+                                addCurrencyToInventory(player, Integer.parseInt(args[1]));
+                            }
 
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
+                        }
+                        else {
+                            player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
+                        }
+                    }
                 }
             }
+            else {
+                // send help message
+            }
+
         }
 
         return false;
