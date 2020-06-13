@@ -71,7 +71,7 @@ public final class Main extends JavaPlugin {
         // if player's inventory has space
         if (!(player.getInventory().firstEmpty() == -1)) {
             player.getInventory().addItem(getCurrency(amount));
-            player.sendMessage(ChatColor.GREEN + "" + amount + " currency received.");
+            player.sendMessage(ChatColor.GREEN + "" + amount + " currency created.");
         }
         else { // player's inventory is full
             player.sendMessage(ChatColor.RED + "Inventory full.");
