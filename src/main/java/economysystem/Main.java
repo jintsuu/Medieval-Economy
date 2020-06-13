@@ -53,6 +53,9 @@ public final class Main extends JavaPlugin {
                             player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
                         }
                     }
+                    else {
+                        System.out.println("You can't run this command from the console!");
+                    }
                 }
             }
             else {
