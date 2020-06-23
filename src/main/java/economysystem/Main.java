@@ -102,10 +102,10 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public ItemStack getCurrency(int amount) {
-        ItemStack currencyItem = new ItemStack(Material.GOLD_INGOT, amount);
+        ItemStack currencyItem = new ItemStack(Material.GOLD_NUGGET, amount);
         ItemMeta meta = currencyItem.getItemMeta();
 
-        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Florin");
+        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Gold Coin");
         List<String> lore = new ArrayList<String>();
         lore.add("");
         lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "The currency of the Continent.");
