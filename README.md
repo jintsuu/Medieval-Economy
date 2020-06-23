@@ -10,3 +10,4 @@ A plugin to make simulating economic systems easier in minecraft.
 -  0.2 'Custom Currency' update
 -  0.3 'Admin Commands' update
 -  0.4 'Help' update
+-  0.5 'Starter Currency' update
