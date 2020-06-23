@@ -5,6 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,13 +15,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Main extends JavaPlugin {
+public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
         System.out.println("Medieval Economy is enabling...");
 
-
+        this.getServer().getPluginManager().registerEvents(this, this);
 
         System.out.println("Medieval Economy is enabled!");
     }
@@ -117,6 +120,15 @@ public final class Main extends JavaPlugin {
         player.sendMessage(ChatColor.AQUA + "/econ help - Show a helpful list of commands.");
         if (player.hasPermission("medievaleconomy.createcurrency")) {
             player.sendMessage(ChatColor.AQUA + "/econ createcurrency # - Bring more currency into the world.");
+        }
+    }
+
+    @EventHandler()
+    public void onJoin(PlayerJoinEvent event) {
+        if (!event.getPlayer().hasPlayedBefore()) {
+            event.getPlayer().sendMessage(ChatColor.GREEN + "You wake up and find that you have some coins and an empty book on your person.");
+            event.getPlayer().getInventory().addItem(getCurrency(50));
+            event.getPlayer().getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
         }
     }
 }
