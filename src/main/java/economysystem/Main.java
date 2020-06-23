@@ -126,8 +126,9 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         if (!event.getPlayer().hasPlayedBefore()) {
-            event.getPlayer().sendMessage(ChatColor.GREEN + "You wake up and find that you have some gold coins and an empty book on your person.");
+            event.getPlayer().sendMessage(ChatColor.GREEN + "You wake up and find that you have some gold coins, some food and an empty book on your person.");
             event.getPlayer().getInventory().addItem(getCurrency(50));
+            event.getPlayer().getInventory().addItem(new ItemStack(Material.BREAD, 10));
             event.getPlayer().getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
         }
     }
