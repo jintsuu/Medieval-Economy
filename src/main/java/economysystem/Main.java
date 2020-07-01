@@ -51,13 +51,13 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public void saveCoinpurseFilenames() {
-        for (Coinpurse purse : coinpurses) {
-            purse.save();
-        }
+
     }
 
     public void saveCoinpurses() {
-
+        for (Coinpurse purse : coinpurses) {
+            purse.save();
+        }
     }
 
     public void loadCoinpurses() {
