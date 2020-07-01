@@ -27,6 +27,8 @@ public final class Main extends JavaPlugin implements Listener {
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
+        load();
+
         System.out.println("Medieval Economy is enabled!");
     }
 
@@ -34,9 +36,32 @@ public final class Main extends JavaPlugin implements Listener {
     public void onDisable() {
         System.out.println("Medieval Economy is disabling...");
 
-
+        save();
 
         System.out.println("Medieval Economy is disabled!");
+    }
+
+    public void save() {
+        saveCoinpurseFilenames();
+        saveCoinpurses();
+    }
+
+    public void load() {
+        loadCoinpurses();
+    }
+
+    public void saveCoinpurseFilenames() {
+        for (Coinpurse purse : coinpurses) {
+            purse.save();
+        }
+    }
+
+    public void saveCoinpurses() {
+
+    }
+
+    public void loadCoinpurses() {
+
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

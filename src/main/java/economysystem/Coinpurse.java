@@ -32,4 +32,12 @@ public class Coinpurse {
         }
         return false;
     }
+
+    public void save() {
+
+    }
+
+    public void load(String filename) {
+
+    }
 }
