@@ -139,6 +139,7 @@ public final class Main extends JavaPlugin implements Listener {
             Coinpurse purse = new Coinpurse();
             purse.setPlayerName(event.getPlayer().getName());
             coinpurses.add(purse);
+            event.getPlayer().sendMessage(ChatColor.GREEN + "You lay a hand at your side to reassure yourself your coinpurse is still there. (hint: use /balance)");
         }
     }
 
