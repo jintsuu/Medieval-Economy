@@ -17,6 +17,8 @@ import java.util.List;
 
 public final class Main extends JavaPlugin implements Listener {
 
+    ArrayList<Coinpurse> coinpurses = new ArrayList<>();
+
     @Override
     public void onEnable() {
         System.out.println("Medieval Economy is enabling...");
@@ -131,5 +133,21 @@ public final class Main extends JavaPlugin implements Listener {
             event.getPlayer().getInventory().addItem(new ItemStack(Material.BREAD, 10));
             event.getPlayer().getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
         }
+
+        if (!hasCoinpurse(event.getPlayer().getName())) {
+            // assign coinpurse
+            Coinpurse purse = new Coinpurse();
+            purse.setPlayerName(event.getPlayer().getName());
+            coinpurses.add(purse);
+        }
+    }
+
+    public boolean hasCoinpurse(String playerName) {
+        for (Coinpurse purse : coinpurses) {
+            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
