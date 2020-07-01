@@ -97,7 +97,7 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    public void removeCurrencyToInventory(Player player, int amount) {
+    public void removeCurrencyFromInventory(Player player, int amount) {
         player.getInventory().removeItem(getCurrency(amount));
     }
 
