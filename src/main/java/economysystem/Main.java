@@ -1,5 +1,7 @@
 package economysystem;
 
+import economysystem.Commands.BalanceCommand;
+import economysystem.Commands.EconCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Main extends JavaPlugin implements Listener {
+
+    ArrayList<Coinpurse> coinpurses = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -38,51 +42,13 @@ public final class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (label.equalsIgnoreCase("econ")) {
-            if (args.length > 0) {
-
-                if (args[0].equalsIgnoreCase("help")) {
-                    if (sender instanceof Player) {
-                        sendHelpMessage((Player) sender);
-                        return true;
-                    }
-                }
-
-                if (args[0].equalsIgnoreCase("createcurrency")) {
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-                        if (player.hasPermission("medievaleconomy.createcurrency")) {
-
-                            if (args.length == 1) {
-                                addCurrencyToInventory(player, 1);
-                                return true;
-                            }
-                            else {
-                                addCurrencyToInventory(player, Integer.parseInt(args[1]));
-                                return true;
-                            }
-
-                        }
-                        else {
-                            player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
-                            return false;
-                        }
-                    }
-                    else {
-                        System.out.println("You can't run this command from the console!");
-                        return false;
-                    }
-                }
-            }
-            else {
-                if (sender instanceof Player) {
-                    sendHelpMessage((Player) sender);
-                    return true;
-                }
-
-            }
-
+            EconCommand command = new EconCommand(this);
+            command.run(sender, args);
         }
-
+        if (label.equalsIgnoreCase("balance")) {
+            BalanceCommand command = new BalanceCommand(this);
+            command.run(sender);
+        }
         return false;
     }
 
@@ -131,5 +97,31 @@ public final class Main extends JavaPlugin implements Listener {
             event.getPlayer().getInventory().addItem(new ItemStack(Material.BREAD, 10));
             event.getPlayer().getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
         }
+
+        if (!hasCoinpurse(event.getPlayer().getName())) {
+            // assign coinpurse
+            Coinpurse purse = new Coinpurse();
+            purse.setPlayerName(event.getPlayer().getName());
+            coinpurses.add(purse);
+            event.getPlayer().sendMessage(ChatColor.GREEN + "You lay a hand at your side to reassure yourself your coinpurse is still there. (hint: use /balance)");
+        }
+    }
+
+    public boolean hasCoinpurse(String playerName) {
+        for (Coinpurse purse : coinpurses) {
+            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Coinpurse getPlayersCoinPurse(String playerName) {
+        for (Coinpurse purse : coinpurses) {
+            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
+                return purse;
+            }
+        }
+        return null;
     }
 }
