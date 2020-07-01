@@ -11,3 +11,4 @@ A plugin to make simulating economic systems easier in minecraft.
 -  0.3 'Admin Commands' update
 -  0.4 'Help' update
 -  0.5 'Starter Currency' update
+-  0.6 'Coinpurse' update
