@@ -33,6 +33,13 @@ public class Coinpurse {
         return false;
     }
 
+    public boolean containsAtLeast(int num) {
+        if (numCoins >= 0) {
+            return true;
+        }
+        return false;
+    }
+
     public void save() {
 
     }
