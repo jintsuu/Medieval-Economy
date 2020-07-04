@@ -27,8 +27,15 @@ public class DepositCommand {
                 // args check
                 if (args.length > 0) {
 
+                    int amount = 0;
+
                     // get args[0]
-                    int amount = Integer.parseInt(args[0]);
+                    try {
+                        amount = Integer.parseInt(args[0]);
+                    } catch(Exception e) {
+                        player.sendMessage(ChatColor.RED + "Usage: /deposit (whole number)");
+                        return;
+                    }
 
                     // enough coins check
                     if (player.getInventory().containsAtLeast(main.getCurrency(1), amount)) {
@@ -38,7 +45,7 @@ public class DepositCommand {
                         purse.addCoins(amount);
 
                         // delete coins from inventory
-                        player.getInventory().remove(main.getCurrency(amount));
+                        player.getInventory().removeItem(main.getCurrency(amount));
 
                         player.sendMessage(ChatColor.GREEN + "You open your coinpurse and deposit " + amount + " coins.");
                     }
