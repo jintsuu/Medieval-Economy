@@ -37,6 +37,11 @@ public class WithdrawCommand {
                         return;
                     }
 
+                    if (amount < 0) {
+                        player.sendMessage(ChatColor.RED + "Number must be positive!");
+                        return;
+                    }
+
                     Coinpurse purse = main.getPlayersCoinPurse(player.getName());
 
                     // enough coins check

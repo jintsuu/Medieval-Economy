@@ -37,6 +37,11 @@ public class DepositCommand {
                         return;
                     }
 
+                    if (amount < 0) {
+                        player.sendMessage(ChatColor.RED + "Number must be positive!");
+                        return;
+                    }
+
                     // enough coins check
                     if (player.getInventory().containsAtLeast(main.getCurrency(1), amount)) {
 
