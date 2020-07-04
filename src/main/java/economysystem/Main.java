@@ -90,7 +90,7 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public void loadCoinpurses() {
-
+        loadCoinpurses();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
