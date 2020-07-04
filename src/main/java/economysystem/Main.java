@@ -80,7 +80,7 @@ public final class Main extends JavaPlugin implements Listener {
             DepositCommand command = new DepositCommand(this);
             command.depositCoins(sender, args);
         }
-        if (label.equalsIgnoreCase("deposit")) {
+        if (label.equalsIgnoreCase("withdraw")) {
             WithdrawCommand command = new WithdrawCommand(this);
             command.withdrawCoins(sender, args);
         }
