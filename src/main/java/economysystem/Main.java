@@ -164,6 +164,7 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onDeath(PlayerDeathEvent event) {
         Coinpurse purse = getPlayersCoinPurse(event.getEntity().getName());
+        int initialCoins = purse.getCoins();
 
         int amount = 0;
 
@@ -181,6 +182,8 @@ public final class Main extends JavaPlugin implements Listener {
         event.getDrops().add(getCurrency(amount));
 
         // inform player
-        event.getEntity().sendMessage(ChatColor.RED + "Your coinpurse feels lighter than it was.");
+        if (initialCoins != 0) {
+            event.getEntity().sendMessage(ChatColor.RED + "Your coinpurse feels lighter than it was.");
+        }
     }
 }
