@@ -1,7 +1,9 @@
 package economysystem;
 
 import economysystem.Commands.BalanceCommand;
+import economysystem.Commands.DepositCommand;
 import economysystem.Commands.EconCommand;
+import economysystem.Commands.WithdrawCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -9,11 +11,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,8 @@ public final class Main extends JavaPlugin implements Listener {
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
+        load();
+
         System.out.println("Medieval Economy is enabled!");
     }
 
@@ -34,9 +42,55 @@ public final class Main extends JavaPlugin implements Listener {
     public void onDisable() {
         System.out.println("Medieval Economy is disabling...");
 
-
+        save();
 
         System.out.println("Medieval Economy is disabled!");
+    }
+
+    public void save() {
+        saveCoinpurseFilenames();
+        saveCoinpurses();
+    }
+
+    public void load() {
+        loadCoinpurses();
+    }
+
+    public void saveCoinpurseFilenames() {
+        try {
+            File saveFolder = new File("./plugins/Medieval-Economy/");
+            if (!saveFolder.exists()) {
+                saveFolder.mkdir();
+            }
+            File saveFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            if (saveFile.createNewFile()) {
+                System.out.println("Save file for coinpurse record filenames created.");
+            } else {
+                System.out.println("Save file for coinpurse record filenames already exists. Overwriting.");
+            }
+
+            FileWriter saveWriter = new FileWriter(saveFile);
+
+            // actual saving takes place here
+            for (Coinpurse purse : coinpurses) {
+                saveWriter.write(purse.getPlayerName() + ".txt" + "\n");
+            }
+
+            saveWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving coinpurse record filenames.");
+        }
+    }
+
+    public void saveCoinpurses() {
+        for (Coinpurse purse : coinpurses) {
+            purse.save();
+        }
+    }
+
+    public void loadCoinpurses() {
+
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -48,6 +102,14 @@ public final class Main extends JavaPlugin implements Listener {
         if (label.equalsIgnoreCase("balance")) {
             BalanceCommand command = new BalanceCommand(this);
             command.run(sender);
+        }
+        if (label.equalsIgnoreCase("deposit")) {
+            DepositCommand command = new DepositCommand(this);
+            command.depositCoins(sender, args);
+        }
+        if (label.equalsIgnoreCase("withdraw")) {
+            WithdrawCommand command = new WithdrawCommand(this);
+            command.withdrawCoins(sender, args);
         }
         return false;
     }
@@ -123,5 +185,31 @@ public final class Main extends JavaPlugin implements Listener {
             }
         }
         return null;
+    }
+
+    @EventHandler()
+    public void onDeath(PlayerDeathEvent event) {
+        Coinpurse purse = getPlayersCoinPurse(event.getEntity().getName());
+        int initialCoins = purse.getCoins();
+
+        int amount = 0;
+
+        // check if purse has at least 10 coins
+        if (purse.containsAtLeast(10)) {
+            amount = (int) (purse.getCoins() * 0.10);
+        }
+        else {
+            amount = 1;
+        }
+        // remove coins from purse
+        purse.removeCoins(amount);
+
+        // drop coins on ground
+        event.getDrops().add(getCurrency(amount));
+
+        // inform player
+        if (initialCoins != 0) {
+            event.getEntity().sendMessage(ChatColor.RED + "Your coinpurse feels lighter than it was.");
+        }
     }
 }
