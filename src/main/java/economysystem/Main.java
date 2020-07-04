@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -158,5 +159,28 @@ public final class Main extends JavaPlugin implements Listener {
             }
         }
         return null;
+    }
+
+    @EventHandler()
+    public void onDeath(PlayerDeathEvent event) {
+        Coinpurse purse = getPlayersCoinPurse(event.getEntity().getName());
+
+        int amount = 0;
+
+        // check if purse has at least 10 coins
+        if (purse.containsAtLeast(10)) {
+            amount = (int) (purse.getCoins() * 0.10);
+        }
+        else {
+            amount = 1;
+        }
+        // remove coins from purse
+        purse.removeCoins(amount);
+
+        // drop coins on ground
+        event.getDrops().add(getCurrency(amount));
+
+        // inform player
+        event.getEntity().sendMessage(ChatColor.RED + "Your coinpurse feels lighter than it was.");
     }
 }
