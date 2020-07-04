@@ -1,6 +1,7 @@
 package economysystem;
 
 import economysystem.Commands.BalanceCommand;
+import economysystem.Commands.DepositCommand;
 import economysystem.Commands.EconCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -73,6 +74,10 @@ public final class Main extends JavaPlugin implements Listener {
         if (label.equalsIgnoreCase("balance")) {
             BalanceCommand command = new BalanceCommand(this);
             command.run(sender);
+        }
+        if (label.equalsIgnoreCase("deposit")) {
+            DepositCommand command = new DepositCommand(this);
+            command.depositCoins(sender, args);
         }
         return false;
     }
