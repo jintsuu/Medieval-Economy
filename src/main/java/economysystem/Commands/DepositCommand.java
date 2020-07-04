@@ -42,9 +42,18 @@ public class DepositCommand {
 
                         player.sendMessage(ChatColor.GREEN + "You open your coinpurse and deposit " + amount + " coins.");
                     }
+                    else {
+                        player.sendMessage(ChatColor.RED + "You don't have that many coins!");
+                    }
 
                 }
+                else {
+                    player.sendMessage(ChatColor.RED + "Usage: /deposit (number)");
+                }
 
+            }
+            else {
+                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.deposit");
             }
 
         }
