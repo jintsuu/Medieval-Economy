@@ -17,6 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +57,30 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public void saveCoinpurseFilenames() {
+        try {
+            File saveFolder = new File("./plugins/Medieval-Economy/");
+            if (!saveFolder.exists()) {
+                saveFolder.mkdir();
+            }
+            File saveFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            if (saveFile.createNewFile()) {
+                System.out.println("Save file for coinpurse record filenames created.");
+            } else {
+                System.out.println("Save file for coinpurse record filenames already exists. Overwriting.");
+            }
 
+            FileWriter saveWriter = new FileWriter(saveFile);
+
+            // actual saving takes place here
+            for (Coinpurse purse : coinpurses) {
+                saveWriter.write(purse.getPlayerName() + ".txt" + "\n");
+            }
+
+            saveWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving coinpurse record filenames.");
+        }
     }
 
     public void saveCoinpurses() {
