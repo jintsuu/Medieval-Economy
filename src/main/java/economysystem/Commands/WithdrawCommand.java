@@ -22,7 +22,7 @@ public class WithdrawCommand {
             Player player = (Player) sender;
 
             // permission check
-            if (player.hasPermission("medievaleconomy.withdraw") || player.hasPermission("medievaleconomy.withdraw")) {
+            if (player.hasPermission("medievaleconomy.withdraw") || player.hasPermission("medievaleconomy.default")) {
 
                 // args check
                 if (args.length > 0) {
@@ -66,7 +66,7 @@ public class WithdrawCommand {
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.deposit");
+                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.withdraw'");
             }
 
         }
