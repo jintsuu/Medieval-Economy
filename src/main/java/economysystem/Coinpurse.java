@@ -26,7 +26,7 @@ public class Coinpurse {
     }
 
     public boolean removeCoins(int num) {
-        if (numCoins - num > 0) {
+        if ((numCoins - num) > 0) {
             numCoins = numCoins - num;
             return true;
         }
