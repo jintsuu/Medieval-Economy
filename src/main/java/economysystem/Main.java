@@ -18,10 +18,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public final class Main extends JavaPlugin implements Listener {
 
@@ -90,7 +92,33 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public void loadCoinpurses() {
-        loadCoinpurses();
+        try {
+            System.out.println("Attempting to load coinpurse records...");
+            File loadFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            Scanner loadReader = new Scanner(loadFile);
+
+            // actual loading
+            while (loadReader.hasNextLine()) {
+                String nextName = loadReader.nextLine();
+                Coinpurse temp = new Coinpurse();
+                temp.load(nextName);
+
+                // existence check
+                boolean exists = false;
+                for (int i = 0; i < coinpurses.size(); i++) {
+                    if (coinpurses.get(i).getPlayerName().equalsIgnoreCase(temp.getPlayerName())) {
+                        coinpurses.remove(i);
+                    }
+                }
+
+                coinpurses.add(temp);
+            }
+
+            loadReader.close();
+            System.out.println("Coinpurse records successfully loaded.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading the coinpurse records!");
+        }
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
