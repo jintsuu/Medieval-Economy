@@ -34,7 +34,7 @@ public class Coinpurse {
     }
 
     public boolean containsAtLeast(int num) {
-        if (numCoins >= 0) {
+        if (numCoins >= num) {
             return true;
         }
         return false;
