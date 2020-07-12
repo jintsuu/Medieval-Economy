@@ -165,8 +165,8 @@ public final class Main extends JavaPlugin implements Listener {
         List<String> lore = new ArrayList<String>();
         lore.add("");
         lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "The currency of the Continent.");
-        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "Best kept in a coinpurse.");
-        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "useful commands: /balance /deposit /withdraw");
+        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + "Best kept in a coinpurse.");
+        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + "useful commands: /balance /deposit /withdraw");
 
         meta.setLore(lore);
         currencyItem.setItemMeta(meta);
