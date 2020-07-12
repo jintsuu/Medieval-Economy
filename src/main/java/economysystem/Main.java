@@ -165,6 +165,8 @@ public final class Main extends JavaPlugin implements Listener {
         List<String> lore = new ArrayList<String>();
         lore.add("");
         lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "The currency of the Continent.");
+        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "Best kept in a coinpurse.");
+        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "useful commands: /balance /deposit /withdraw");
 
         meta.setLore(lore);
         currencyItem.setItemMeta(meta);
@@ -193,7 +195,7 @@ public final class Main extends JavaPlugin implements Listener {
             Coinpurse purse = new Coinpurse();
             purse.setPlayerName(event.getPlayer().getName());
             coinpurses.add(purse);
-            event.getPlayer().sendMessage(ChatColor.GREEN + "You lay a hand at your side to reassure yourself your coinpurse is still there. (hint: use /balance)");
+            event.getPlayer().sendMessage(ChatColor.GREEN + "You lay a hand at your side to reassure yourself your coinpurse is still there. (commands: /balance, /deposit, /withdraw)");
         }
     }
 
