@@ -4,6 +4,7 @@ import economysystem.Commands.BalanceCommand;
 import economysystem.Commands.DepositCommand;
 import economysystem.Commands.EconCommand;
 import economysystem.Commands.WithdrawCommand;
+import economysystem.Subsystems.StorageSubsystem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -27,7 +28,11 @@ import java.util.Scanner;
 
 public final class Main extends JavaPlugin implements Listener {
 
-    ArrayList<Coinpurse> coinpurses = new ArrayList<>();
+    // subsystems
+    StorageSubsystem storage = new StorageSubsystem(this);
+
+    // saved lists
+    public ArrayList<Coinpurse> coinpurses = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -35,7 +40,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
-        load();
+        storage.load();
 
         System.out.println("Medieval Economy is enabled!");
     }
@@ -44,81 +49,9 @@ public final class Main extends JavaPlugin implements Listener {
     public void onDisable() {
         System.out.println("Medieval Economy is disabling...");
 
-        save();
+        storage.save();
 
         System.out.println("Medieval Economy is disabled!");
-    }
-
-    public void save() {
-        saveCoinpurseFilenames();
-        saveCoinpurses();
-    }
-
-    public void load() {
-        loadCoinpurses();
-    }
-
-    public void saveCoinpurseFilenames() {
-        try {
-            File saveFolder = new File("./plugins/Medieval-Economy/");
-            if (!saveFolder.exists()) {
-                saveFolder.mkdir();
-            }
-            File saveFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
-            if (saveFile.createNewFile()) {
-                System.out.println("Save file for coinpurse record filenames created.");
-            } else {
-                System.out.println("Save file for coinpurse record filenames already exists. Overwriting.");
-            }
-
-            FileWriter saveWriter = new FileWriter(saveFile);
-
-            // actual saving takes place here
-            for (Coinpurse purse : coinpurses) {
-                saveWriter.write(purse.getPlayerName() + ".txt" + "\n");
-            }
-
-            saveWriter.close();
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving coinpurse record filenames.");
-        }
-    }
-
-    public void saveCoinpurses() {
-        for (Coinpurse purse : coinpurses) {
-            purse.save();
-        }
-    }
-
-    public void loadCoinpurses() {
-        try {
-            System.out.println("Attempting to load coinpurse records...");
-            File loadFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
-            Scanner loadReader = new Scanner(loadFile);
-
-            // actual loading
-            while (loadReader.hasNextLine()) {
-                String nextName = loadReader.nextLine();
-                Coinpurse temp = new Coinpurse();
-                temp.load(nextName);
-
-                // existence check
-                boolean exists = false;
-                for (int i = 0; i < coinpurses.size(); i++) {
-                    if (coinpurses.get(i).getPlayerName().equalsIgnoreCase(temp.getPlayerName())) {
-                        coinpurses.remove(i);
-                    }
-                }
-
-                coinpurses.add(temp);
-            }
-
-            loadReader.close();
-            System.out.println("Coinpurse records successfully loaded.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Error loading the coinpurse records!");
-        }
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
