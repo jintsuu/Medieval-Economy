@@ -6,6 +6,7 @@ import economysystem.Commands.EconCommand;
 import economysystem.Commands.WithdrawCommand;
 import economysystem.Subsystems.CommandSubsystem;
 import economysystem.Subsystems.StorageSubsystem;
+import economysystem.Subsystems.UtilitySubsystem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -31,6 +32,8 @@ public final class Main extends JavaPlugin implements Listener {
 
     // subsystems
     StorageSubsystem storage = new StorageSubsystem(this);
+    CommandSubsystem commands = new CommandSubsystem(this);
+    UtilitySubsystem utilities = new UtilitySubsystem(this);
 
     // saved lists
     public ArrayList<Coinpurse> coinpurses = new ArrayList<>();
@@ -56,59 +59,19 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        CommandSubsystem commands = new CommandSubsystem(this);
         return commands.interpretCommand(sender, label, args);
-    }
-
-    public void addCurrencyToInventory(Player player, int amount) {
-        // if player's inventory has space
-        if (!(player.getInventory().firstEmpty() == -1)) {
-            player.getInventory().addItem(getCurrency(amount));
-            player.sendMessage(ChatColor.GREEN + "" + amount + " currency created.");
-        }
-        else { // player's inventory is full
-            player.sendMessage(ChatColor.RED + "Inventory full.");
-        }
-    }
-
-    public void removeCurrencyFromInventory(Player player, int amount) {
-        player.getInventory().removeItem(getCurrency(amount));
-    }
-
-    public ItemStack getCurrency(int amount) {
-        ItemStack currencyItem = new ItemStack(Material.GOLD_NUGGET, amount);
-        ItemMeta meta = currencyItem.getItemMeta();
-
-        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Gold Coin");
-        List<String> lore = new ArrayList<String>();
-        lore.add("");
-        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "The currency of the Continent.");
-        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + "Best kept in a coinpurse.");
-        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + "useful commands: /balance /deposit /withdraw");
-
-        meta.setLore(lore);
-        currencyItem.setItemMeta(meta);
-
-        return currencyItem;
-    }
-
-    public static void sendHelpMessage(Player player) {
-        player.sendMessage(ChatColor.AQUA + "/econ help - Show a helpful list of commands.");
-        if (player.hasPermission("medievaleconomy.createcurrency")) {
-            player.sendMessage(ChatColor.AQUA + "/econ createcurrency # - Bring more currency into the world.");
-        }
     }
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         if (!event.getPlayer().hasPlayedBefore()) {
             event.getPlayer().sendMessage(ChatColor.GREEN + "You wake up and find that you have some gold coins, some food and an empty book on your person.");
-            event.getPlayer().getInventory().addItem(getCurrency(50));
+            event.getPlayer().getInventory().addItem(utilities.getCurrency(50));
             event.getPlayer().getInventory().addItem(new ItemStack(Material.BREAD, 10));
             event.getPlayer().getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
         }
 
-        if (!hasCoinpurse(event.getPlayer().getName())) {
+        if (!utilities.hasCoinpurse(event.getPlayer().getName())) {
             // assign coinpurse
             Coinpurse purse = new Coinpurse();
             purse.setPlayerName(event.getPlayer().getName());
@@ -117,27 +80,9 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    public boolean hasCoinpurse(String playerName) {
-        for (Coinpurse purse : coinpurses) {
-            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Coinpurse getPlayersCoinPurse(String playerName) {
-        for (Coinpurse purse : coinpurses) {
-            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
-                return purse;
-            }
-        }
-        return null;
-    }
-
     @EventHandler()
     public void onDeath(PlayerDeathEvent event) {
-        Coinpurse purse = getPlayersCoinPurse(event.getEntity().getName());
+        Coinpurse purse = utilities.getPlayersCoinPurse(event.getEntity().getName());
         int initialCoins = purse.getCoins();
 
         int amount = 0;
@@ -153,7 +98,7 @@ public final class Main extends JavaPlugin implements Listener {
         purse.removeCoins(amount);
 
         // drop coins on ground
-        event.getDrops().add(getCurrency(amount));
+        event.getDrops().add(utilities.getCurrency(amount));
 
         // inform player
         if (initialCoins != 0) {
