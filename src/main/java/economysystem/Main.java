@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 public final class Main extends JavaPlugin implements Listener {
 
+    // version
+    public String version = "v0.7";
+
     // subsystems
     public StorageSubsystem storage = new StorageSubsystem(this);
     public CommandSubsystem commands = new CommandSubsystem(this);

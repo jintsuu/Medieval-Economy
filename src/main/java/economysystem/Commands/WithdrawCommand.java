@@ -42,7 +42,7 @@ public class WithdrawCommand {
                         return;
                     }
 
-                    Coinpurse purse = main.getPlayersCoinPurse(player.getName());
+                    Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getName());
 
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {
@@ -51,7 +51,7 @@ public class WithdrawCommand {
                         purse.removeCoins(amount);
 
                         // add coins from inventory
-                        player.getInventory().addItem(main.getCurrency(amount));
+                        player.getInventory().addItem(main.utilities.getCurrency(amount));
 
                         player.sendMessage(ChatColor.GREEN + "You open your coinpurse and take out " + amount + " coins.");
                     }

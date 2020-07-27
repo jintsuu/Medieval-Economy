@@ -51,7 +51,7 @@ public class UtilitySubsystem {
         return currencyItem;
     }
 
-    public static void sendHelpMessage(Player player) {
+    public void sendHelpMessage(Player player) {
         player.sendMessage(ChatColor.AQUA + "/econ help - Show a helpful list of commands.");
         if (player.hasPermission("medievaleconomy.createcurrency")) {
             player.sendMessage(ChatColor.AQUA + "/econ createcurrency # - Bring more currency into the world.");

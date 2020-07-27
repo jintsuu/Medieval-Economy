@@ -43,14 +43,14 @@ public class DepositCommand {
                     }
 
                     // enough coins check
-                    if (player.getInventory().containsAtLeast(main.getCurrency(1), amount)) {
+                    if (player.getInventory().containsAtLeast(main.utilities.getCurrency(1), amount)) {
 
                         // add coins to coinpurse
-                        Coinpurse purse = main.getPlayersCoinPurse(player.getName());
+                        Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getName());
                         purse.addCoins(amount);
 
                         // delete coins from inventory
-                        player.getInventory().removeItem(main.getCurrency(amount));
+                        player.getInventory().removeItem(main.utilities.getCurrency(amount));
 
                         player.sendMessage(ChatColor.GREEN + "You open your coinpurse and deposit " + amount + " coins.");
                     }

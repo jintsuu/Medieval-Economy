@@ -5,8 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static economysystem.Main.sendHelpMessage;
-
 public class EconCommand {
 
     Main main = null;
@@ -20,7 +18,7 @@ public class EconCommand {
 
             if (args[0].equalsIgnoreCase("help")) {
                 if (sender instanceof Player) {
-                    sendHelpMessage((Player) sender);
+                    main.utilities.sendHelpMessage((Player) sender);
                 }
             }
 
@@ -30,10 +28,10 @@ public class EconCommand {
                     if (player.hasPermission("medievaleconomy.createcurrency")) {
 
                         if (args.length == 1) {
-                            main.addCurrencyToInventory(player, 1);
+                            main.utilities.addCurrencyToInventory(player, 1);
                         }
                         else {
-                            main.addCurrencyToInventory(player, Integer.parseInt(args[1]));
+                            main.utilities.addCurrencyToInventory(player, Integer.parseInt(args[1]));
                         }
 
                     }
@@ -48,7 +46,7 @@ public class EconCommand {
         }
         else {
             if (sender instanceof Player) {
-                sendHelpMessage((Player) sender);
+                main.utilities.sendHelpMessage((Player) sender);
             }
 
         }
