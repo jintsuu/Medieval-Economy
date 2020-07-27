@@ -4,6 +4,7 @@ import economysystem.Commands.BalanceCommand;
 import economysystem.Commands.DepositCommand;
 import economysystem.Commands.EconCommand;
 import economysystem.Commands.WithdrawCommand;
+import economysystem.Subsystems.CommandSubsystem;
 import economysystem.Subsystems.StorageSubsystem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -55,24 +56,8 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-        if (label.equalsIgnoreCase("econ")) {
-            EconCommand command = new EconCommand(this);
-            command.run(sender, args);
-        }
-        if (label.equalsIgnoreCase("balance")) {
-            BalanceCommand command = new BalanceCommand(this);
-            command.run(sender);
-        }
-        if (label.equalsIgnoreCase("deposit")) {
-            DepositCommand command = new DepositCommand(this);
-            command.depositCoins(sender, args);
-        }
-        if (label.equalsIgnoreCase("withdraw")) {
-            WithdrawCommand command = new WithdrawCommand(this);
-            command.withdrawCoins(sender, args);
-        }
-        return false;
+        CommandSubsystem commands = new CommandSubsystem(this);
+        return commands.interpretCommand(sender, label, args);
     }
 
     public void addCurrencyToInventory(Player player, int amount) {
