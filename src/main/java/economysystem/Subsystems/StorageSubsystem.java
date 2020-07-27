@@ -1,6 +1,6 @@
 package economysystem.Subsystems;
 
-import economysystem.Coinpurse;
+import economysystem.Objects.Coinpurse;
 import economysystem.Main;
 
 import java.io.File;

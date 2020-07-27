@@ -12,4 +12,4 @@ A plugin to make simulating economic systems easier in minecraft.
 -  0.4 'Help' update
 -  0.5 'Starter Currency' update
 -  0.6 'Coinpurse' update
--  0.7 ''
+-  0.7

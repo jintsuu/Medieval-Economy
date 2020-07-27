@@ -2,6 +2,7 @@ package economysystem;
 
 import economysystem.EventHandlers.PlayerDeathEventHandler;
 import economysystem.EventHandlers.PlayerJoinEventHandler;
+import economysystem.Objects.Coinpurse;
 import economysystem.Subsystems.CommandSubsystem;
 import economysystem.Subsystems.StorageSubsystem;
 import economysystem.Subsystems.UtilitySubsystem;
