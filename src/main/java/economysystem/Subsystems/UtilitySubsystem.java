@@ -85,15 +85,18 @@ public class UtilitySubsystem {
         if (saveFolder.exists()) {
             System.out.println(main.getConfig().getString("compatibilityText"));
 
-            // rename directory
             File newSaveFolder = new File("./plugins/MedievalEconomy/");
-            saveFolder.renameTo(newSaveFolder);
+            if (!newSaveFolder.exists()) {
+                // rename directory
+                saveFolder.renameTo(newSaveFolder);
 
-            // delete old folder
-            File oldFolder = new File("./plugins/Medieval-Economy");
-            if (oldFolder.exists()) {
-                oldFolder.delete(); // TODO: fix this not working
+                // delete old folder
+                File oldFolder = new File("./plugins/Medieval-Economy");
+                if (oldFolder.exists()) {
+                    oldFolder.delete(); // TODO: fix this not working
+                }
             }
+
         }
     }
 
