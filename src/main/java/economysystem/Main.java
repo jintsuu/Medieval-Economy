@@ -4,6 +4,7 @@ import economysystem.EventHandlers.PlayerDeathEventHandler;
 import economysystem.EventHandlers.PlayerJoinEventHandler;
 import economysystem.Objects.Coinpurse;
 import economysystem.Subsystems.CommandSubsystem;
+import economysystem.Subsystems.ConfigSubsystem;
 import economysystem.Subsystems.StorageSubsystem;
 import economysystem.Subsystems.UtilitySubsystem;
 import org.bukkit.command.Command;
@@ -14,6 +15,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public final class Main extends JavaPlugin implements Listener {
@@ -25,6 +27,7 @@ public final class Main extends JavaPlugin implements Listener {
     public StorageSubsystem storage = new StorageSubsystem(this);
     public CommandSubsystem commands = new CommandSubsystem(this);
     public UtilitySubsystem utilities = new UtilitySubsystem(this);
+    public ConfigSubsystem config = new ConfigSubsystem(this);
 
     // saved lists
     public ArrayList<Coinpurse> coinpurses = new ArrayList<>();
@@ -32,6 +35,16 @@ public final class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         System.out.println("Medieval Economy is enabling...");
+
+        // config creation/loading
+        if (!(new File("./plugins/Medieval-Economy/config.yml").exists())) {
+            config.saveConfigDefaults();
+        }
+        else {
+            config.handleVersionMismatch();
+            reloadConfig();
+        }
+
         this.getServer().getPluginManager().registerEvents(this, this);
         storage.load();
         System.out.println("Medieval Economy is enabled!");
