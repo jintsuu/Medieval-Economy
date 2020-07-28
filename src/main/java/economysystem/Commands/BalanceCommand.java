@@ -27,13 +27,13 @@ public class BalanceCommand {
 
                     int num = purse.getCoins();
 
-                    player.sendMessage(ChatColor.GREEN + "You have " + num + " coins in your coinpurse.");
+                    player.sendMessage(ChatColor.GREEN + main.getConfig().getString("balanceTextStart") + num + main.getConfig().getString("balanceTextEnd"));
 
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to run this command, you need the following permission: " + "'medievaleconomy.default'");
+                player.sendMessage(ChatColor.RED + main.getConfig().getString("balanceNoPermission"));
             }
 
         }

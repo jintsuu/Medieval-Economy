@@ -25,7 +25,7 @@ public class PlayerJoinEventHandler {
 
         if (!main.utilities.hasCoinpurse(event.getPlayer().getName())) {
             // assign coinpurse
-            Coinpurse purse = new Coinpurse();
+            Coinpurse purse = new Coinpurse(main);
             purse.setPlayerName(event.getPlayer().getName());
             main.coinpurses.add(purse);
             event.getPlayer().sendMessage(ChatColor.GREEN + "You lay a hand at your side to reassure yourself your coinpurse is still there. (commands: /balance, /deposit, /withdraw)");

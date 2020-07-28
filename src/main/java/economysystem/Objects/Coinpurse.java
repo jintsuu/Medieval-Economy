@@ -1,5 +1,7 @@
 package economysystem.Objects;
 
+import economysystem.Main;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,6 +9,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Coinpurse {
+
+    Main main = null;
+
+    public Coinpurse(Main plugin) {
+        main = plugin;
+    }
 
     private String playerName = "defaultName";
     private int numCoins = 0;
@@ -57,11 +65,6 @@ public class Coinpurse {
                 saveFolder2.mkdir();
             }
             File saveFile = new File("./plugins/MedievalEconomy/Coinpurse-Records/" + playerName + ".txt");
-            if (saveFile.createNewFile()) {
-                System.out.println("Coinpurse Record for " +  playerName + " created.");
-            } else {
-                System.out.println("Coinpurse Record for " +  playerName + " already exists. Altering.");
-            }
 
             FileWriter saveWriter = new FileWriter("./plugins/MedievalEconomy/Coinpurse-Records/" + playerName + ".txt");
 
@@ -71,10 +74,8 @@ public class Coinpurse {
 
             saveWriter.close();
 
-            System.out.println("Successfully saved Coinpurse Record.");
-
         } catch (IOException e) {
-            System.out.println("An error occurred saving a Coinpurse Record.");
+            System.out.println(main.getConfig().getString("coinpurseSaveErrorText"));
         }
     }
 
@@ -93,9 +94,8 @@ public class Coinpurse {
             }
 
             loadReader.close();
-            System.out.println(filename + " successfully loaded.");
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred loading " + filename + ".");
+            System.out.println(main.getConfig().getString("coinpurseLoadErrorText") + filename);
         }
     }
 }

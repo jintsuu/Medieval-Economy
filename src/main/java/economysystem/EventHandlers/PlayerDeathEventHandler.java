@@ -34,7 +34,7 @@ public class PlayerDeathEventHandler {
 
         // inform player
         if (initialCoins != 0) {
-            event.getEntity().sendMessage(ChatColor.RED + "Your coinpurse feels lighter than it was.");
+            event.getEntity().sendMessage(ChatColor.RED + main.getConfig().getString("deathMessage"));
         }
     }
 

@@ -34,7 +34,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        System.out.println("Medieval Economy is enabling...");
+        System.out.println(getConfig().getString("enablingText"));
 
         utilities.ensureSmoothTransitionBetweenVersions();
 
@@ -49,14 +49,14 @@ public final class Main extends JavaPlugin implements Listener {
 
         this.getServer().getPluginManager().registerEvents(this, this);
         storage.load();
-        System.out.println("Medieval Economy is enabled!");
+        System.out.println(getConfig().getString("enablingText"));
     }
 
     @Override
     public void onDisable() {
-        System.out.println("Medieval Economy is disabling...");
+        System.out.println(getConfig().getString("disablingText"));
         storage.save();
-        System.out.println("Medieval Economy is disabled!");
+        System.out.println(getConfig().getString("disabledText"));
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

@@ -32,12 +32,12 @@ public class DepositCommand {
                     try {
                         amount = Integer.parseInt(args[0]);
                     } catch(Exception e) {
-                        player.sendMessage(ChatColor.RED + "Usage: /deposit (whole number)");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("depositUsageText"));
                         return;
                     }
 
                     if (amount < 0) {
-                        player.sendMessage(ChatColor.RED + "Number must be positive!");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("depositPositiveText"));
                         return;
                     }
 
@@ -51,20 +51,20 @@ public class DepositCommand {
                         // delete coins from inventory
                         player.getInventory().removeItem(main.utilities.getCurrency(amount));
 
-                        player.sendMessage(ChatColor.GREEN + "You open your coinpurse and deposit " + amount + " coins.");
+                        player.sendMessage(ChatColor.GREEN + main.getConfig().getString("depositTextStart") + amount + main.getConfig().getString("depositTextEnd"));
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + "You don't have that many coins!");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("depositNotEnoughCoins"));
                     }
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "Usage: /deposit (number)");
+                    player.sendMessage(ChatColor.RED + main.getConfig().getString("depositUsageText"));
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.deposit");
+                player.sendMessage(ChatColor.RED + main.getConfig().getString("depositNoPermission"));
             }
 
         }

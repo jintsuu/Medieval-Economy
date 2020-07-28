@@ -36,11 +36,11 @@ public class EconCommand {
 
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.createcurrency");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("createCurrencyNoPermission"));
                     }
                 }
                 else {
-                    System.out.println("You can't run this command from the console!");
+                    System.out.println(main.getConfig().getString("createCurrencyNoRunFromConsole"));
                 }
             }
         }
@@ -55,15 +55,15 @@ public class EconCommand {
                 Player player = (Player) sender;
                 if (player.hasPermission("medievaleconomy.reload") || player.hasPermission("medievaleconomy.admin")) {
                     main.reloadConfig();
-                    player.sendMessage(ChatColor.GREEN + "Config reloaded!");
+                    player.sendMessage(ChatColor.GREEN + main.getConfig().getString("configReloadedText"));
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You need the following permission to use this command: 'medievaleconomy.reload'");
+                    player.sendMessage(ChatColor.RED + main.getConfig().getString("reloadNoPermission"));
                 }
             }
             else {
                 main.reloadConfig();
-                System.out.println("Config reloaded!");
+                System.out.println(main.getConfig().getString("configReloadedText"));
             }
 
         }

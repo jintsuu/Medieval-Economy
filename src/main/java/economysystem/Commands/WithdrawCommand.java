@@ -32,12 +32,12 @@ public class WithdrawCommand {
                     try {
                         amount = Integer.parseInt(args[0]);
                     } catch(Exception e) {
-                        player.sendMessage(ChatColor.RED + "Usage: /withdraw (whole number)");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawUsageText"));
                         return;
                     }
 
                     if (amount < 0) {
-                        player.sendMessage(ChatColor.RED + "Number must be positive!");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawPositiveText"));
                         return;
                     }
 
@@ -52,20 +52,20 @@ public class WithdrawCommand {
                         // add coins from inventory
                         player.getInventory().addItem(main.utilities.getCurrency(amount));
 
-                        player.sendMessage(ChatColor.GREEN + "You open your coinpurse and take out " + amount + " coins.");
+                        player.sendMessage(ChatColor.GREEN + main.getConfig().getString("withdrawTextStart") + amount + main.getConfig().getString("withdrawTextEnd"));
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + "You don't have that many coins in your coinpurse!");
+                        player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawNotEnoughCoins"));
                     }
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "Usage: /deposit (number)");
+                    player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawUsageText"));
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.withdraw'");
+                player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawNoPermission"));
             }
 
         }
