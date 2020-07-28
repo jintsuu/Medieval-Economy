@@ -87,7 +87,11 @@ public class UtilitySubsystem {
             File newSaveFolder = new File("./plugins/MedievalEconomy/");
             saveFolder.renameTo(newSaveFolder);
 
-            saveFolder.delete();
+            // delete old folder
+            File oldFolder = new File("./plugins/Medieval-Economy");
+            if (oldFolder.exists()) {
+                oldFolder.delete();
+            }
         }
     }
 
