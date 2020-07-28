@@ -28,11 +28,11 @@ public class StorageSubsystem {
 
     public void saveCoinpurseFilenames() {
         try {
-            File saveFolder = new File("./plugins/Medieval-Economy/");
+            File saveFolder = new File("./plugins/MedievalEconomy/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            File saveFile = new File("./plugins/MedievalEconomy/" + "coinpurse-record-filenames.txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Save file for coinpurse record filenames created.");
             } else {
@@ -62,7 +62,7 @@ public class StorageSubsystem {
     public void loadCoinpurses() {
         try {
             System.out.println("Attempting to load coinpurse records...");
-            File loadFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            File loadFile = new File("./plugins/MedievalEconomy/" + "coinpurse-record-filenames.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading

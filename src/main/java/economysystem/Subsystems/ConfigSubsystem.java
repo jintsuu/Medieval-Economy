@@ -23,11 +23,11 @@ public class ConfigSubsystem {
 
     public void renameConfigToConfigDotOldAndSaveDefaults() {
         // save old config as config.yml.old
-        File saveFile = new File("./plugins/Medieval-Economy/config.yml");
+        File saveFile = new File("./plugins/MedievalEconomy/config.yml");
         if (saveFile.exists()) {
 
             // rename file
-            File newSaveFile = new File("./plugins/Medieval-Economy/config.yml.old");
+            File newSaveFile = new File("./plugins/MedievalEconomy/config.yml.old");
             saveFile.renameTo(newSaveFile);
 
             // save defaults

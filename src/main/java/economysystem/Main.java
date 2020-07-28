@@ -36,8 +36,10 @@ public final class Main extends JavaPlugin implements Listener {
     public void onEnable() {
         System.out.println("Medieval Economy is enabling...");
 
+        utilities.ensureSmoothTransitionBetweenVersions();
+
         // config creation/loading
-        if (!(new File("./plugins/Medieval-Economy/config.yml").exists())) {
+        if (!(new File("./plugins/MedievalEconomy/config.yml").exists())) {
             config.saveConfigDefaults();
         }
         else {

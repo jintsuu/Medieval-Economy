@@ -48,22 +48,22 @@ public class Coinpurse {
 
     public void save() {
         try {
-            File saveFolder = new File("./plugins/Medieval-Economy/");
+            File saveFolder = new File("./plugins/MedievalEconomy/");
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFolder2 = new File("./plugins/Medieval-Economy/Coinpurse-Records/");
+            File saveFolder2 = new File("./plugins/MedievalEconomy/Coinpurse-Records/");
             if (!saveFolder2.exists()) {
                 saveFolder2.mkdir();
             }
-            File saveFile = new File("./plugins/Medieval-Economy/Coinpurse-Records/" + playerName + ".txt");
+            File saveFile = new File("./plugins/MedievalEconomy/Coinpurse-Records/" + playerName + ".txt");
             if (saveFile.createNewFile()) {
                 System.out.println("Coinpurse Record for " +  playerName + " created.");
             } else {
                 System.out.println("Coinpurse Record for " +  playerName + " already exists. Altering.");
             }
 
-            FileWriter saveWriter = new FileWriter("./plugins/Medieval-Economy/Coinpurse-Records/" + playerName + ".txt");
+            FileWriter saveWriter = new FileWriter("./plugins/MedievalEconomy/Coinpurse-Records/" + playerName + ".txt");
 
             // actual saving takes place here
             saveWriter.write(playerName + "\n");
@@ -80,7 +80,7 @@ public class Coinpurse {
 
     public void load(String filename) {
         try {
-            File loadFile = new File("./plugins/Medieval-Economy/Coinpurse-Records/" + filename);
+            File loadFile = new File("./plugins/MedievalEconomy/Coinpurse-Records/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
