@@ -90,7 +90,7 @@ public class UtilitySubsystem {
             // delete old folder
             File oldFolder = new File("./plugins/Medieval-Economy");
             if (oldFolder.exists()) {
-                oldFolder.delete();
+                oldFolder.delete(); // TODO: fix this not working
             }
         }
     }

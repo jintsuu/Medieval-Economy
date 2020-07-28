@@ -25,7 +25,7 @@ public class EconCommand {
             if (args[0].equalsIgnoreCase("createcurrency")) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    if (player.hasPermission("medievaleconomy.createcurrency")) {
+                    if (player.hasPermission("medievaleconomy.createcurrency") || player.hasPermission("medievaleconomy.admin")) {
 
                         if (args.length == 1) {
                             main.utilities.addCurrencyToInventory(player, 1);
@@ -53,15 +53,17 @@ public class EconCommand {
         if (args[0].equalsIgnoreCase("reload")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (player.hasPermission("medievaleconomy.reload")) {
+                if (player.hasPermission("medievaleconomy.reload") || player.hasPermission("medievaleconomy.admin")) {
                     main.reloadConfig();
+                    player.sendMessage(ChatColor.GREEN + "Config reloaded!");
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.reload");
+                    player.sendMessage(ChatColor.RED + "You need the following permission to use this command: 'medievaleconomy.reload'");
                 }
             }
             else {
                 main.reloadConfig();
+                System.out.println("Config reloaded!");
             }
 
         }
