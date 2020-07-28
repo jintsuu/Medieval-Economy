@@ -65,6 +65,14 @@ public class ConfigSubsystem {
         main.getConfig().addDefault("withdrawNotEnoughCoins", "You don't have that many coins in your coinpurse!");
         main.getConfig().addDefault("withdrawNoPermission", "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.withdraw'");
         main.getConfig().addDefault("deathMessage", "Your coinpurse feels lighter than it was.");
+        main.getConfig().addDefault("storageSaveError", "An error occurred while saving coinpurse record filenames.");
+        main.getConfig().addDefault("storageLoadError", "Error loading the coinpurse records!");
+        main.getConfig().addDefault("titleSeparator", true);
+        main.getConfig().addDefault("currencyItemName", "Gold Coin");
+        main.getConfig().addDefault("currencyItemLoreLineOne", "The currency of the Continent.");
+        main.getConfig().addDefault("currencyItemLoreLineTwo", "Best kept in a coinpurse.");
+        main.getConfig().addDefault("currencyItemLoreLineThree", "useful commands: /balance /deposit /withdraw");
+        main.getConfig().addDefault("compatibilityText", "[ALERT] Old save folder name (pre v3.2) detected. Updating for compatibility.");
         main.getConfig().options().copyDefaults(true);
         main.saveConfig();
     }

@@ -39,12 +39,14 @@ public class UtilitySubsystem {
         ItemStack currencyItem = new ItemStack(Material.GOLD_NUGGET, amount);
         ItemMeta meta = currencyItem.getItemMeta();
 
-        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Gold Coin");
+        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + main.getConfig().getString("currencyItemName"));
         List<String> lore = new ArrayList<String>();
-        lore.add("");
-        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + "The currency of the Continent.");
-        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + "Best kept in a coinpurse.");
-        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + "useful commands: /balance /deposit /withdraw");
+        if (main.getConfig().getBoolean("titleSeparator")) {
+            lore.add("");
+        }
+        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + main.getConfig().getString("currencyItemLoreLineOne"));
+        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + main.getConfig().getString("currencyItemLoreLineTwo"));
+        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + main.getConfig().getString("currencyItemLoreLineThree"));
 
         meta.setLore(lore);
         currencyItem.setItemMeta(meta);
@@ -81,7 +83,7 @@ public class UtilitySubsystem {
         // this piece of code is to ensure that saves don't become broken when updating to v0.7 from a previous version
         File saveFolder = new File("./plugins/Medieval-Economy/");
         if (saveFolder.exists()) {
-            System.out.println("[ALERT] Old save folder name (pre v3.2) detected. Updating for compatibility.");
+            System.out.println(main.getConfig().getString("compatibilityText"));
 
             // rename directory
             File newSaveFolder = new File("./plugins/MedievalEconomy/");

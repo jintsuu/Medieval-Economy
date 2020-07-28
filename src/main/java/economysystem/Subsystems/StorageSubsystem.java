@@ -33,11 +33,6 @@ public class StorageSubsystem {
                 saveFolder.mkdir();
             }
             File saveFile = new File("./plugins/MedievalEconomy/" + "coinpurse-record-filenames.txt");
-            if (saveFile.createNewFile()) {
-                System.out.println("Save file for coinpurse record filenames created.");
-            } else {
-                System.out.println("Save file for coinpurse record filenames already exists. Overwriting.");
-            }
 
             FileWriter saveWriter = new FileWriter(saveFile);
 
@@ -49,7 +44,7 @@ public class StorageSubsystem {
             saveWriter.close();
 
         } catch (IOException e) {
-            System.out.println("An error occurred while saving coinpurse record filenames.");
+            System.out.println(main.getConfig().getString("storageSaveError"));
         }
     }
 
@@ -61,14 +56,13 @@ public class StorageSubsystem {
 
     public void loadCoinpurses() {
         try {
-            System.out.println("Attempting to load coinpurse records...");
             File loadFile = new File("./plugins/MedievalEconomy/" + "coinpurse-record-filenames.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
-                Coinpurse temp = new Coinpurse();
+                Coinpurse temp = new Coinpurse(main);
                 temp.load(nextName);
 
                 // existence check
@@ -83,9 +77,8 @@ public class StorageSubsystem {
             }
 
             loadReader.close();
-            System.out.println("Coinpurse records successfully loaded.");
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading the coinpurse records!");
+            System.out.println(main.getConfig().getString("storageLoadError"));
         }
     }
 
