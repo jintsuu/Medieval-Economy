@@ -48,6 +48,21 @@ public class EconCommand {
             if (sender instanceof Player) {
                 main.utilities.sendHelpMessage((Player) sender);
             }
+        }
+
+        if (args[0].equalsIgnoreCase("reload")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                if (player.hasPermission("medievaleconomy.reload")) {
+                    main.reloadConfig();
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "You need the following permission to use this command: medievaleconomy.reload");
+                }
+            }
+            else {
+                main.reloadConfig();
+            }
 
         }
     }
