@@ -93,6 +93,10 @@ public class UtilitySubsystem {
                 // delete old folder
                 File oldFolder = new File("./plugins/Medieval-Economy");
                 deleteLegacyFiles(oldFolder);
+
+                // load in old saves and save them with new format
+                main.storage.legacyLoadCoinpurses();
+                main.storage.save();
             }
 
         }

@@ -32,7 +32,6 @@ public class ConfigSubsystem {
 
             // save defaults
             saveConfigDefaults();
-
         }
     }
 
