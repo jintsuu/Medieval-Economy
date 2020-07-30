@@ -92,12 +92,23 @@ public class UtilitySubsystem {
 
                 // delete old folder
                 File oldFolder = new File("./plugins/Medieval-Economy");
-                if (oldFolder.exists()) {
-                    oldFolder.delete(); // TODO: fix this not working
-                }
+                deleteLegacyFiles(oldFolder);
             }
 
         }
     }
 
+    // Recursive file delete from https://www.baeldung.com/java-delete-directory
+    boolean deleteLegacyFiles(File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteLegacyFiles(file);
+            }
+        }
+        if (directoryToBeDeleted.getAbsolutePath().contains("config.yml")) {
+            return true;
+        }
+        return directoryToBeDeleted.delete();
+    }
 }
