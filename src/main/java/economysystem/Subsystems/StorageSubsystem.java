@@ -55,6 +55,12 @@ public class StorageSubsystem {
     }
 
     public void loadCoinpurses() {
+
+        // TODO: load based on JSON files
+
+    }
+
+    public void legacyLoadCoinpurses() {
         try {
             File loadFile = new File("./plugins/MedievalEconomy/" + "coinpurse-record-filenames.txt");
             Scanner loadReader = new Scanner(loadFile);
@@ -63,15 +69,7 @@ public class StorageSubsystem {
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
                 Coinpurse temp = new Coinpurse(main);
-                temp.load(nextName);
-
-                // existence check
-                boolean exists = false;
-                for (int i = 0; i < main.coinpurses.size(); i++) {
-                    if (main.coinpurses.get(i).getPlayerName().equalsIgnoreCase(temp.getPlayerName())) {
-                        main.coinpurses.remove(i);
-                    }
-                }
+                temp.legacyLoad(nextName);
 
                 main.coinpurses.add(temp);
             }

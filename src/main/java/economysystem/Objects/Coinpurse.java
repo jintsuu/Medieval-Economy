@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Coinpurse {
 
@@ -16,15 +17,15 @@ public class Coinpurse {
         main = plugin;
     }
 
-    private String playerName = "defaultName";
+    private UUID uuid = null;
     private int numCoins = 0;
 
-    public void setPlayerName(String s) {
-        playerName = s;
+    public void setPlayerUUID(UUID id) {
+        uuid = id;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public UUID getPlayerUUID() {
+        return uuid;
     }
 
     public void setCoins(int i) {
@@ -55,38 +56,21 @@ public class Coinpurse {
     }
 
     public void save() {
-        try {
-            File saveFolder = new File("./plugins/MedievalEconomy/");
-            if (!saveFolder.exists()) {
-                saveFolder.mkdir();
-            }
-            File saveFolder2 = new File("./plugins/MedievalEconomy/Coinpurse-Records/");
-            if (!saveFolder2.exists()) {
-                saveFolder2.mkdir();
-            }
-            File saveFile = new File("./plugins/MedievalEconomy/Coinpurse-Records/" + playerName + ".txt");
 
-            FileWriter saveWriter = new FileWriter("./plugins/MedievalEconomy/Coinpurse-Records/" + playerName + ".txt");
+        // TODO: write new save method based on JSON
 
-            // actual saving takes place here
-            saveWriter.write(playerName + "\n");
-            saveWriter.write(numCoins + "\n");
-
-            saveWriter.close();
-
-        } catch (IOException e) {
-            System.out.println(main.getConfig().getString("coinpurseSaveErrorText"));
-        }
     }
 
-    public void load(String filename) {
+    public void legacyLoad(String filename) {
         try {
             File loadFile = new File("./plugins/MedievalEconomy/Coinpurse-Records/" + filename);
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
             if (loadReader.hasNextLine()) {
-                playerName = loadReader.nextLine();
+                String playerName = loadReader.nextLine();
+
+                // TODO: find UUID based on player name and set it here
             }
 
             if (loadReader.hasNextLine()) {
