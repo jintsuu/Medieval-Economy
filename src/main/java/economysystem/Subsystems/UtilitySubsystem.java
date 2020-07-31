@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UtilitySubsystem {
 
@@ -61,18 +62,18 @@ public class UtilitySubsystem {
         }
     }
 
-    public boolean hasCoinpurse(String playerName) {
+    public boolean hasCoinpurse(UUID uuid) {
         for (Coinpurse purse : main.coinpurses) {
-            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
+            if (purse.getPlayerUUID().equals(uuid)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Coinpurse getPlayersCoinPurse(String playerName) {
+    public Coinpurse getPlayersCoinPurse(UUID uuid) {
         for (Coinpurse purse : main.coinpurses) {
-            if (purse.getPlayerName().equalsIgnoreCase(playerName)) {
+            if (purse.getPlayerUUID().equals(uuid)) {
                 return purse;
             }
         }
