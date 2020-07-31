@@ -45,7 +45,7 @@ public class DepositCommand {
                     if (player.getInventory().containsAtLeast(main.utilities.getCurrency(1), amount)) {
 
                         // add coins to coinpurse
-                        Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getName());
+                        Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getUniqueId());
                         purse.addCoins(amount);
 
                         // delete coins from inventory

@@ -21,7 +21,7 @@ public class BalanceCommand {
             // permission check
             if (player.hasPermission("medievaleconomy.balance") || player.hasPermission("medievaleconomy.default")) {
 
-                Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getName());
+                Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getUniqueId());
 
                 if (purse != null) {
 

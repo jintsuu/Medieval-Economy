@@ -41,7 +41,7 @@ public class WithdrawCommand {
                         return;
                     }
 
-                    Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getName());
+                    Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getUniqueId());
 
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {

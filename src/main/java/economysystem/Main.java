@@ -43,7 +43,10 @@ public final class Main extends JavaPlugin implements Listener {
             config.saveConfigDefaults();
         }
         else {
-            config.handleVersionMismatch();
+            // check version
+            if (!getConfig().getString("version").equalsIgnoreCase(version)) {
+                config.handleVersionMismatch();
+            }
             reloadConfig();
         }
 
