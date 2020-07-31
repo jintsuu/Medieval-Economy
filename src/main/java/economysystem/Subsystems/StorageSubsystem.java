@@ -38,7 +38,7 @@ public class StorageSubsystem {
 
             // actual saving takes place here
             for (Coinpurse purse : main.coinpurses) {
-                saveWriter.write(purse.getPlayerName() + ".txt" + "\n");
+                saveWriter.write(purse.getPlayerUUID() + ".txt" + "\n");
             }
 
             saveWriter.close();
