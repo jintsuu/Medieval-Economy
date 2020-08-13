@@ -56,9 +56,50 @@ public class Coinpurse {
     }
 
     public void save() {
+        try {
+            File saveFolder = new File("./plugins/Medieval-Economy/");
+            if (!saveFolder.exists()) {
+                saveFolder.mkdir();
+            }
+            File saveFolder2 = new File("./plugins/Medieval-Economy/Coinpurse-Records/");
+            if (!saveFolder2.exists()) {
+                saveFolder2.mkdir();
+            }
+            File saveFile = new File("./plugins/Medieval-Economy/Coinpurse-Records/" + uuid + ".txt");
+            saveFile.createNewFile();
 
-        // TODO: write new save method based on JSON
+            FileWriter saveWriter = new FileWriter("./plugins/Medieval-Economy/Coinpurse-Records/" + uuid + ".txt");
 
+            // actual saving takes place here
+            saveWriter.write(uuid + "\n");
+            saveWriter.write(numCoins + "\n");
+
+            saveWriter.close();
+
+        } catch (IOException e) {
+            System.out.println(main.getConfig().getString("coinpurseSaveErrorText"));
+        }
+    }
+
+    public void load(String filename) {
+        try {
+            File loadFile = new File("./plugins/Medieval-Economy/Coinpurse-Records/" + filename);
+            Scanner loadReader = new Scanner(loadFile);
+
+            // actual loading
+            if (loadReader.hasNextLine()) {
+                uuid = UUID.fromString(loadReader.nextLine());
+            }
+
+            if (loadReader.hasNextLine()) {
+                numCoins = Integer.parseInt(loadReader.nextLine());
+            }
+
+            loadReader.close();
+            System.out.println(filename + " successfully loaded.");
+        } catch (FileNotFoundException e) {
+            System.out.println(main.getConfig().getString("coinpurseLoadErrorText") + filename);
+        }
     }
 
     public void legacyLoad(String filename) {
@@ -70,7 +111,7 @@ public class Coinpurse {
             if (loadReader.hasNextLine()) {
                 String playerName = loadReader.nextLine();
 
-                // TODO: find UUID based on player name and set it here
+                uuid = main.findUUIDBasedOnPlayerName(playerName);
             }
 
             if (loadReader.hasNextLine()) {

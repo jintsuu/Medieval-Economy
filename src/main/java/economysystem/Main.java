@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public final class Main extends JavaPlugin implements Listener {
 
@@ -76,5 +77,10 @@ public final class Main extends JavaPlugin implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         PlayerDeathEventHandler handler = new PlayerDeathEventHandler(this);
         handler.handle(event);
+    }
+
+    public UUID findUUIDBasedOnPlayerName(String playerName) {
+
+        return null;
     }
 }

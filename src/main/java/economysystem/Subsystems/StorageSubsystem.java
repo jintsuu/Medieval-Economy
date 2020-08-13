@@ -38,7 +38,7 @@ public class StorageSubsystem {
 
             // actual saving takes place here
             for (Coinpurse purse : main.coinpurses) {
-                saveWriter.write(purse.getPlayerUUID() + ".txt" + "\n");
+                saveWriter.write(purse.getPlayerUUID().toString() + ".txt" + "\n");
             }
 
             saveWriter.close();
@@ -55,9 +55,33 @@ public class StorageSubsystem {
     }
 
     public void loadCoinpurses() {
+        try {
+            System.out.println("Attempting to load coinpurse records...");
+            File loadFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            Scanner loadReader = new Scanner(loadFile);
 
-        // TODO: load based on JSON files
+            // actual loading
+            while (loadReader.hasNextLine()) {
+                String nextName = loadReader.nextLine();
+                Coinpurse temp = new Coinpurse(main);
+                temp.load(nextName);
 
+                // existence check
+                boolean exists = false;
+                for (int i = 0; i < main.coinpurses.size(); i++) {
+                    if (main.coinpurses.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                        main.coinpurses.remove(i);
+                    }
+                }
+
+                main.coinpurses.add(temp);
+            }
+
+            loadReader.close();
+            System.out.println("Coinpurse records successfully loaded.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading the coinpurse records!");
+        }
     }
 
     public void legacyLoadCoinpurses() {
