@@ -22,7 +22,7 @@ import java.util.UUID;
 public final class Main extends JavaPlugin implements Listener {
 
     // version
-    public String version = "v0.7";
+    public String version = "v1.0";
 
     // subsystems
     public StorageSubsystem storage = new StorageSubsystem(this);
