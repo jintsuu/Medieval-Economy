@@ -71,7 +71,7 @@ public class Coinpurse {
             FileWriter saveWriter = new FileWriter("./plugins/Medieval-Economy/Coinpurse-Records/" + uuid + ".txt");
 
             // actual saving takes place here
-            saveWriter.write(uuid + "\n");
+            saveWriter.write(uuid.toString() + "\n");
             saveWriter.write(numCoins + "\n");
 
             saveWriter.close();

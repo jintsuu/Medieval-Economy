@@ -67,11 +67,14 @@ public class StorageSubsystem {
                 temp.load(nextName);
 
                 // existence check
-                boolean exists = false;
+                int index = -1;
                 for (int i = 0; i < main.coinpurses.size(); i++) {
                     if (main.coinpurses.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
-                        main.coinpurses.remove(i);
+                        index = i;
                     }
+                }
+                if (index != -1) {
+                    main.coinpurses.remove(index);
                 }
 
                 main.coinpurses.add(temp);
