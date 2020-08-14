@@ -57,7 +57,7 @@ public class StorageSubsystem {
     public void loadCoinpurses() {
         try {
             System.out.println("Attempting to load coinpurse records...");
-            File loadFile = new File("./plugins/Medieval-Economy/" + "coinpurse-record-filenames.txt");
+            File loadFile = new File("./plugins/MedievalEconomy/" + "coinpurse-record-filenames.txt");
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
@@ -83,7 +83,8 @@ public class StorageSubsystem {
             loadReader.close();
             System.out.println("Coinpurse records successfully loaded.");
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading the coinpurse records!");
+            System.out.println(main.getConfig().getString("storageLoadError"));
+            e.printStackTrace();
         }
     }
 
@@ -104,7 +105,10 @@ public class StorageSubsystem {
             loadReader.close();
         } catch (FileNotFoundException e) {
             System.out.println(main.getConfig().getString("storageLoadError"));
+            e.printStackTrace();
         }
+
+        save();
     }
 
 }

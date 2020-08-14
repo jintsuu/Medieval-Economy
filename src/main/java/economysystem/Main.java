@@ -7,8 +7,10 @@ import economysystem.Subsystems.CommandSubsystem;
 import economysystem.Subsystems.ConfigSubsystem;
 import economysystem.Subsystems.StorageSubsystem;
 import economysystem.Subsystems.UtilitySubsystem;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -18,6 +20,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import static org.bukkit.Bukkit.getOfflinePlayers;
+import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public final class Main extends JavaPlugin implements Listener {
 
@@ -52,7 +57,13 @@ public final class Main extends JavaPlugin implements Listener {
         }
 
         this.getServer().getPluginManager().registerEvents(this, this);
-        storage.load();
+        if (new File("./plugins/MedievalEconomy/config.yml").exists()) {
+            storage.load();
+        }
+        else {
+            storage.legacyLoadCoinpurses();
+        }
+
         System.out.println(getConfig().getString("enablingText"));
     }
 
@@ -79,7 +90,26 @@ public final class Main extends JavaPlugin implements Listener {
         handler.handle(event);
     }
 
-    public UUID findUUIDBasedOnPlayerName(String playerName) {
+    // Pasarus wrote this
+    public static UUID findUUIDBasedOnPlayerName(String playerName){
+        // Check online
+        for (Player player : getOnlinePlayers()){
+            if (player.getName().equals(playerName)){
+                return player.getUniqueId();
+            }
+        }
+
+        // Check offline
+        for (OfflinePlayer player : getOfflinePlayers()){
+            try {
+                if (player.getName().equals(playerName)){
+                    return player.getUniqueId();
+                }
+            } catch (NullPointerException e) {
+                // Fail silently as quit possibly common.
+            }
+
+        }
 
         return null;
     }
