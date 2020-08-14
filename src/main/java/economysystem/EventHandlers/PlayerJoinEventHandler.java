@@ -23,10 +23,10 @@ public class PlayerJoinEventHandler {
             event.getPlayer().getInventory().addItem(new ItemStack(Material.WRITABLE_BOOK));
         }
 
-        if (!main.utilities.hasCoinpurse(event.getPlayer().getName())) {
+        if (!main.utilities.hasCoinpurse(event.getPlayer().getUniqueId())) {
             // assign coinpurse
             Coinpurse purse = new Coinpurse(main);
-            purse.setPlayerName(event.getPlayer().getName());
+            purse.setPlayerUUID(event.getPlayer().getUniqueId());
             main.coinpurses.add(purse);
             event.getPlayer().sendMessage(ChatColor.GREEN + "You lay a hand at your side to reassure yourself your coinpurse is still there. (commands: /balance, /deposit, /withdraw)");
         }
