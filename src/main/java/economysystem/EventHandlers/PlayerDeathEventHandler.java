@@ -14,7 +14,7 @@ public class PlayerDeathEventHandler {
     }
 
     public void handle(PlayerDeathEvent event) {
-        Coinpurse purse = main.utilities.getPlayersCoinPurse(event.getEntity().getName());
+        Coinpurse purse = main.utilities.getPlayersCoinPurse(event.getEntity().getUniqueId());
         int initialCoins = purse.getCoins();
 
         int amount = 0;
