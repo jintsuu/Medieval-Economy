@@ -29,11 +29,11 @@ public class PlayerDeathEventHandler {
         // remove coins from purse
         purse.removeCoins(amount);
 
-        // drop coins on ground
-        event.getDrops().add(main.utilities.getCurrency(amount));
-
-        // inform player
         if (initialCoins != 0) {
+            // drop coins on ground
+            event.getDrops().add(main.utilities.getCurrency(amount));
+
+            // inform player
             event.getEntity().sendMessage(ChatColor.RED + main.getConfig().getString("deathMessage"));
         }
     }
