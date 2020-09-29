@@ -7,6 +7,7 @@ import economysystem.Subsystems.CommandSubsystem;
 import economysystem.Subsystems.ConfigSubsystem;
 import economysystem.Subsystems.StorageSubsystem;
 import economysystem.Subsystems.UtilitySubsystem;
+import economysystem.bStats.Metrics;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -64,7 +65,10 @@ public final class Main extends JavaPlugin implements Listener {
             storage.legacyLoadCoinpurses();
         }
 
-        System.out.println(getConfig().getString("enablingText"));
+        int pluginId = 8998;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        System.out.println(getConfig().getString("enabledText"));
     }
 
     @Override
