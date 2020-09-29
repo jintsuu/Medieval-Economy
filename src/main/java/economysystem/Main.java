@@ -28,7 +28,7 @@ import static org.bukkit.Bukkit.getOnlinePlayers;
 public final class Main extends JavaPlugin implements Listener {
 
     // version
-    public String version = "v1.0";
+    public String version = "v1.1";
 
     // subsystems
     public StorageSubsystem storage = new StorageSubsystem(this);
