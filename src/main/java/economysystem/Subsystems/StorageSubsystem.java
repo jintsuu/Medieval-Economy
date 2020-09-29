@@ -84,7 +84,7 @@ public class StorageSubsystem {
             System.out.println("Coinpurse records successfully loaded.");
         } catch (FileNotFoundException e) {
             System.out.println(main.getConfig().getString("storageLoadError"));
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
@@ -105,7 +105,7 @@ public class StorageSubsystem {
             loadReader.close();
         } catch (FileNotFoundException e) {
             System.out.println(main.getConfig().getString("storageLoadError"));
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
         save();
