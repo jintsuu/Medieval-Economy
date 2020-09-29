@@ -27,6 +27,7 @@ public class PlayerDeathEventHandler {
             else {
                 amountToDrop = 1;
             }
+
             // remove coins from purse
             purse.removeCoins(amountToDrop);
 
