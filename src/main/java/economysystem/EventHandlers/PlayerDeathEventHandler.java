@@ -15,23 +15,23 @@ public class PlayerDeathEventHandler {
 
     public void handle(PlayerDeathEvent event) {
         Coinpurse purse = main.utilities.getPlayersCoinPurse(event.getEntity().getUniqueId());
-        int initialCoins = purse.getCoins();
 
-        int amount = 0;
+        if (purse.getCoins() != 0) {
 
-        // check if purse has at least 10 coins
-        if (purse.containsAtLeast(10)) {
-            amount = (int) (purse.getCoins() * 0.10);
-        }
-        else {
-            amount = 1;
-        }
-        // remove coins from purse
-        purse.removeCoins(amount);
+            int amountToDrop = 0;
 
-        if (initialCoins != 0) {
+            // check if purse has at least 10 coins
+            if (purse.containsAtLeast(10)) {
+                amountToDrop = (int) (purse.getCoins() * 0.10);
+            }
+            else {
+                amountToDrop = 1;
+            }
+            // remove coins from purse
+            purse.removeCoins(amountToDrop);
+
             // drop coins on ground
-            event.getDrops().add(main.utilities.getCurrency(amount));
+            event.getDrops().add(main.utilities.getCurrency(amountToDrop));
 
             // inform player
             event.getEntity().sendMessage(ChatColor.RED + main.getConfig().getString("deathMessage"));
