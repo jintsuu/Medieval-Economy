@@ -46,6 +46,14 @@ public class WithdrawCommand {
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {
 
+                        System.out.println("DEBUG: Free inventory slots: " + (36 - player.getInventory().getStorageContents().length));
+
+                        // too many coins check
+                        if (amount > (36 - player.getInventory().getStorageContents().length)) {
+                            player.sendMessage(ChatColor.RED + "" + main.getConfig().getString("withdrawNotEnoughSpace"));
+                            return;
+                        }
+
                         // remove coins to coinpurse
                         purse.removeCoins(amount);
 

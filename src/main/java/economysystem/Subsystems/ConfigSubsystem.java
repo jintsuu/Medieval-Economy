@@ -62,6 +62,7 @@ public class ConfigSubsystem {
         main.getConfig().addDefault("withdrawTextStart", "You open your coinpurse and take out ");
         main.getConfig().addDefault("withdrawTextEnd", " coins.");
         main.getConfig().addDefault("withdrawNotEnoughCoins", "You don't have that many coins in your coinpurse!");
+        main.getConfig().addDefault("withdrawNotEnoughSpace", "You don't have enough space in your inventory for that many coins!");
         main.getConfig().addDefault("withdrawNoPermission", "Sorry! In order to use this command, you need the permission " + "'medievaleconomy.withdraw'");
         main.getConfig().addDefault("deathMessage", "Your coinpurse feels lighter than it was.");
         main.getConfig().addDefault("storageSaveError", "An error occurred while saving coinpurse record filenames.");
