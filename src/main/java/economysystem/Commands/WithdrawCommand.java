@@ -47,8 +47,6 @@ public class WithdrawCommand {
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {
 
-                        System.out.println("DEBUG: Free inventory slots: " + (36 - player.getInventory().getStorageContents().length));
-
                         int withdrawn = 0;
                         for (int i = 0; i < amount; i++) {
                             if (!(player.getInventory().firstEmpty() == -1)) {
