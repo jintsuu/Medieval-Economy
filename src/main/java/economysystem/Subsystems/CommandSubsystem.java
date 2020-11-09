@@ -4,35 +4,35 @@ import economysystem.Commands.BalanceCommand;
 import economysystem.Commands.DepositCommand;
 import economysystem.Commands.EconCommand;
 import economysystem.Commands.WithdrawCommand;
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 import org.bukkit.command.CommandSender;
 
 public class CommandSubsystem {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public CommandSubsystem(Main plugin) {
-        main = plugin;
+    public CommandSubsystem(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
         if (label.equalsIgnoreCase("econ")) {
-            EconCommand command = new EconCommand(main);
+            EconCommand command = new EconCommand(medievalEconomy);
             command.run(sender, args);
             return true;
         }
         if (label.equalsIgnoreCase("balance")) {
-            BalanceCommand command = new BalanceCommand(main);
+            BalanceCommand command = new BalanceCommand(medievalEconomy);
             command.run(sender);
             return true;
         }
         if (label.equalsIgnoreCase("deposit")) {
-            DepositCommand command = new DepositCommand(main);
+            DepositCommand command = new DepositCommand(medievalEconomy);
             command.depositCoins(sender, args);
             return true;
         }
         if (label.equalsIgnoreCase("withdraw")) {
-            WithdrawCommand command = new WithdrawCommand(main);
+            WithdrawCommand command = new WithdrawCommand(medievalEconomy);
             command.withdrawCoins(sender, args);
             return true;
         }

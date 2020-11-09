@@ -25,7 +25,7 @@ import java.util.UUID;
 import static org.bukkit.Bukkit.getOfflinePlayers;
 import static org.bukkit.Bukkit.getOnlinePlayers;
 
-public final class Main extends JavaPlugin implements Listener {
+public final class MedievalEconomy extends JavaPlugin implements Listener {
 
     // version
     public String version = "v1.1";
