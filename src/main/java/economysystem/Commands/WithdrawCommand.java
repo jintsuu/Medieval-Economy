@@ -47,21 +47,33 @@ public class WithdrawCommand {
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {
 
-                        // System.out.println("DEBUG: Free inventory slots: " + (36 - player.getInventory().getStorageContents().length));
+                        System.out.println("DEBUG: Free inventory slots: " + (36 - player.getInventory().getStorageContents().length));
 
-                        // too many coins check
-                        if (amount/64 > getEmptySpaces(player)) {
-                            player.sendMessage(ChatColor.RED + "" + medievalEconomy.getConfig().getString("withdrawNotEnoughSpace"));
-                            return;
+                        int withdrawn = 0;
+                        for (int i = 0; i < amount; i++) {
+                            if (!(player.getInventory().firstEmpty() == -1)) {
+                                purse.removeCoins(1);
+                                player.getInventory().addItem(medievalEconomy.utilities.getCurrency(1));
+                                withdrawn++;
+                            }
+                            else {
+                                int remainder = amount - withdrawn;
+                                if (remainder < 64) {
+                                    purse.removeCoins(remainder);
+                                    player.getInventory().addItem(medievalEconomy.utilities.getCurrency(remainder));
+                                    withdrawn = withdrawn + remainder;
+                                }
+                                else {
+                                    purse.removeCoins(63);
+                                    player.getInventory().addItem(medievalEconomy.utilities.getCurrency(63));
+                                    withdrawn = withdrawn + 63;
+                                    player.sendMessage(ChatColor.RED + "" + medievalEconomy.getConfig().getString("withdrawNotEnoughSpace"));
+                                    return;
+                                }
+
+                            }
                         }
-
-                        // remove coins to coinpurse
-                        purse.removeCoins(amount);
-
-                        // add coins from inventory
-                        player.getInventory().addItem(medievalEconomy.utilities.getCurrency(amount));
-
-                        player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("withdrawTextStart") + amount + medievalEconomy.getConfig().getString("withdrawTextEnd"));
+                        player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("withdrawTextStart") + withdrawn + medievalEconomy.getConfig().getString("withdrawTextEnd"));
                     }
                     else {
                         player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("withdrawNotEnoughCoins"));
@@ -81,13 +93,4 @@ public class WithdrawCommand {
 
     }
 
-    private int getEmptySpaces(Player player) {
-        int emptySpaces = 0;
-        for (ItemStack i : player.getInventory()) {
-            if (i == null) {
-                emptySpaces++;
-            }
-        }
-        return emptySpaces;
-    }
 }
