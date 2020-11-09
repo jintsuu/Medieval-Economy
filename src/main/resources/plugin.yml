@@ -1,5 +1,5 @@
 name: MedievalEconomy
-version: "1.1"
+version: "1.1.1"
 author: DanTheTechMan
 main: economysystem.MedievalEconomy
 api-version: "1.15"
