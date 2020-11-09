@@ -47,6 +47,13 @@ public class WithdrawCommand {
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {
 
+                        // if no free slots then disallow
+                        if (player.getInventory().firstEmpty() == -1) {
+                            player.sendMessage(ChatColor.RED + "" + medievalEconomy.getConfig().getString("withdrawNotEnoughSpace"));
+                            return;
+                        }
+
+                        // withdraw until inventory is full
                         int withdrawn = 0;
                         for (int i = 0; i < amount; i++) {
                             if (!(player.getInventory().firstEmpty() == -1)) {
