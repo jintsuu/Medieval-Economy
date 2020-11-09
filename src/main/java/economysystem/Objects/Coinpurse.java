@@ -1,6 +1,6 @@
 package economysystem.Objects;
 
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,10 +11,10 @@ import java.util.UUID;
 
 public class Coinpurse {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public Coinpurse(Main plugin) {
-        main = plugin;
+    public Coinpurse(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     private UUID uuid = null;
@@ -77,7 +77,7 @@ public class Coinpurse {
             saveWriter.close();
 
         } catch (IOException e) {
-            System.out.println(main.getConfig().getString("coinpurseSaveErrorText"));
+            System.out.println(medievalEconomy.getConfig().getString("coinpurseSaveErrorText"));
         }
     }
 
@@ -98,7 +98,7 @@ public class Coinpurse {
             loadReader.close();
             System.out.println(filename + " successfully loaded.");
         } catch (FileNotFoundException e) {
-            System.out.println(main.getConfig().getString("coinpurseLoadErrorText") + filename);
+            System.out.println(medievalEconomy.getConfig().getString("coinpurseLoadErrorText") + filename);
         }
     }
 
@@ -111,7 +111,7 @@ public class Coinpurse {
             if (loadReader.hasNextLine()) {
                 String playerName = loadReader.nextLine();
 
-                uuid = main.findUUIDBasedOnPlayerName(playerName);
+                uuid = medievalEconomy.findUUIDBasedOnPlayerName(playerName);
             }
 
             if (loadReader.hasNextLine()) {
@@ -121,7 +121,7 @@ public class Coinpurse {
             loadReader.close();
             loadFile.delete();
         } catch (FileNotFoundException e) {
-            System.out.println(main.getConfig().getString("coinpurseLoadErrorText") + filename);
+            System.out.println(medievalEconomy.getConfig().getString("coinpurseLoadErrorText") + filename);
         }
     }
 }

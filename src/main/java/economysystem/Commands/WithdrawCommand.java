@@ -1,17 +1,18 @@
 package economysystem.Commands;
 
 import economysystem.Objects.Coinpurse;
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class WithdrawCommand {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public WithdrawCommand(Main plugin) {
-        main = plugin;
+    public WithdrawCommand(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     public void withdrawCoins(CommandSender sender, String[] args) {
@@ -32,16 +33,16 @@ public class WithdrawCommand {
                     try {
                         amount = Integer.parseInt(args[0]);
                     } catch(Exception e) {
-                        player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawUsageText"));
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("withdrawUsageText"));
                         return;
                     }
 
                     if (amount < 0) {
-                        player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawPositiveText"));
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("withdrawPositiveText"));
                         return;
                     }
 
-                    Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getUniqueId());
+                    Coinpurse purse = medievalEconomy.utilities.getPlayersCoinPurse(player.getUniqueId());
 
                     // enough coins check
                     if (purse.containsAtLeast(amount)) {
@@ -49,8 +50,8 @@ public class WithdrawCommand {
                         // System.out.println("DEBUG: Free inventory slots: " + (36 - player.getInventory().getStorageContents().length));
 
                         // too many coins check
-                        if (amount > (36 - player.getInventory().getStorageContents().length)) {
-                            player.sendMessage(ChatColor.RED + "" + main.getConfig().getString("withdrawNotEnoughSpace"));
+                        if (amount/64 > getEmptySpaces(player)) {
+                            player.sendMessage(ChatColor.RED + "" + medievalEconomy.getConfig().getString("withdrawNotEnoughSpace"));
                             return;
                         }
 
@@ -58,25 +59,35 @@ public class WithdrawCommand {
                         purse.removeCoins(amount);
 
                         // add coins from inventory
-                        player.getInventory().addItem(main.utilities.getCurrency(amount));
+                        player.getInventory().addItem(medievalEconomy.utilities.getCurrency(amount));
 
-                        player.sendMessage(ChatColor.GREEN + main.getConfig().getString("withdrawTextStart") + amount + main.getConfig().getString("withdrawTextEnd"));
+                        player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("withdrawTextStart") + amount + medievalEconomy.getConfig().getString("withdrawTextEnd"));
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawNotEnoughCoins"));
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("withdrawNotEnoughCoins"));
                     }
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawUsageText"));
+                    player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("withdrawUsageText"));
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + main.getConfig().getString("withdrawNoPermission"));
+                player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("withdrawNoPermission"));
             }
 
         }
 
+    }
+
+    private int getEmptySpaces(Player player) {
+        int emptySpaces = 0;
+        for (ItemStack i : player.getInventory()) {
+            if (i == null) {
+                emptySpaces++;
+            }
+        }
+        return emptySpaces;
     }
 }

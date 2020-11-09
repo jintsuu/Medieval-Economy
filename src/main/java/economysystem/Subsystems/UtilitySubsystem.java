@@ -1,7 +1,7 @@
 package economysystem.Subsystems;
 
 import economysystem.Objects.Coinpurse;
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,10 +15,10 @@ import java.util.UUID;
 
 public class UtilitySubsystem {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public UtilitySubsystem(Main plugin) {
-        main = plugin;
+    public UtilitySubsystem(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     public void addCurrencyToInventory(Player player, int amount) {
@@ -40,14 +40,14 @@ public class UtilitySubsystem {
         ItemStack currencyItem = new ItemStack(Material.GOLD_NUGGET, amount);
         ItemMeta meta = currencyItem.getItemMeta();
 
-        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + main.getConfig().getString("currencyItemName"));
+        meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + medievalEconomy.getConfig().getString("currencyItemName"));
         List<String> lore = new ArrayList<String>();
-        if (main.getConfig().getBoolean("titleSeparator")) {
+        if (medievalEconomy.getConfig().getBoolean("titleSeparator")) {
             lore.add("");
         }
-        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + main.getConfig().getString("currencyItemLoreLineOne"));
-        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + main.getConfig().getString("currencyItemLoreLineTwo"));
-        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + main.getConfig().getString("currencyItemLoreLineThree"));
+        lore.add(ChatColor.GOLD + "" + ChatColor.ITALIC + medievalEconomy.getConfig().getString("currencyItemLoreLineOne"));
+        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + medievalEconomy.getConfig().getString("currencyItemLoreLineTwo"));
+        lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + medievalEconomy.getConfig().getString("currencyItemLoreLineThree"));
 
         meta.setLore(lore);
         currencyItem.setItemMeta(meta);
@@ -63,7 +63,7 @@ public class UtilitySubsystem {
     }
 
     public boolean hasCoinpurse(UUID uuid) {
-        for (Coinpurse purse : main.coinpurses) {
+        for (Coinpurse purse : medievalEconomy.coinpurses) {
             if (purse.getPlayerUUID().equals(uuid)) {
                 return true;
             }
@@ -72,7 +72,7 @@ public class UtilitySubsystem {
     }
 
     public Coinpurse getPlayersCoinPurse(UUID uuid) {
-        for (Coinpurse purse : main.coinpurses) {
+        for (Coinpurse purse : medievalEconomy.coinpurses) {
             if (purse.getPlayerUUID().equals(uuid)) {
                 return purse;
             }
@@ -84,7 +84,7 @@ public class UtilitySubsystem {
         // this piece of code is to ensure that saves don't become broken when updating to v0.7 from a previous version
         File saveFolder = new File("./plugins/Medieval-Economy/");
         if (saveFolder.exists()) {
-            System.out.println(main.getConfig().getString("compatibilityText"));
+            System.out.println(medievalEconomy.getConfig().getString("compatibilityText"));
 
             File newSaveFolder = new File("./plugins/MedievalEconomy/");
             if (!newSaveFolder.exists()) {
@@ -96,8 +96,8 @@ public class UtilitySubsystem {
                 deleteLegacyFiles(oldFolder);
 
                 // load in old saves and save them with new format
-                main.storage.legacyLoadCoinpurses();
-                main.storage.save();
+                medievalEconomy.storage.legacyLoadCoinpurses();
+                medievalEconomy.storage.save();
             }
 
         }

@@ -1,17 +1,17 @@
 package economysystem.Commands;
 
 import economysystem.Objects.Coinpurse;
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class DepositCommand {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public DepositCommand(Main plugin) {
-        main = plugin;
+    public DepositCommand(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     public void depositCoins(CommandSender sender, String[] args) {
@@ -32,39 +32,39 @@ public class DepositCommand {
                     try {
                         amount = Integer.parseInt(args[0]);
                     } catch(Exception e) {
-                        player.sendMessage(ChatColor.RED + main.getConfig().getString("depositUsageText"));
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("depositUsageText"));
                         return;
                     }
 
                     if (amount < 0) {
-                        player.sendMessage(ChatColor.RED + main.getConfig().getString("depositPositiveText"));
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("depositPositiveText"));
                         return;
                     }
 
                     // enough coins check
-                    if (player.getInventory().containsAtLeast(main.utilities.getCurrency(1), amount)) {
+                    if (player.getInventory().containsAtLeast(medievalEconomy.utilities.getCurrency(1), amount)) {
 
                         // add coins to coinpurse
-                        Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getUniqueId());
+                        Coinpurse purse = medievalEconomy.utilities.getPlayersCoinPurse(player.getUniqueId());
                         purse.addCoins(amount);
 
                         // delete coins from inventory
-                        player.getInventory().removeItem(main.utilities.getCurrency(amount));
+                        player.getInventory().removeItem(medievalEconomy.utilities.getCurrency(amount));
 
-                        player.sendMessage(ChatColor.GREEN + main.getConfig().getString("depositTextStart") + amount + main.getConfig().getString("depositTextEnd"));
+                        player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("depositTextStart") + amount + medievalEconomy.getConfig().getString("depositTextEnd"));
                     }
                     else {
-                        player.sendMessage(ChatColor.RED + main.getConfig().getString("depositNotEnoughCoins"));
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("depositNotEnoughCoins"));
                     }
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + main.getConfig().getString("depositUsageText"));
+                    player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("depositUsageText"));
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + main.getConfig().getString("depositNoPermission"));
+                player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("depositNoPermission"));
             }
 
         }

@@ -1,7 +1,7 @@
 package economysystem.Subsystems;
 
 import economysystem.Objects.Coinpurse;
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,10 +11,10 @@ import java.util.Scanner;
 
 public class StorageSubsystem {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public StorageSubsystem(Main plugin) {
-        main = plugin;
+    public StorageSubsystem(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     public void save() {
@@ -37,19 +37,19 @@ public class StorageSubsystem {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (Coinpurse purse : main.coinpurses) {
+            for (Coinpurse purse : medievalEconomy.coinpurses) {
                 saveWriter.write(purse.getPlayerUUID().toString() + ".txt" + "\n");
             }
 
             saveWriter.close();
 
         } catch (IOException e) {
-            System.out.println(main.getConfig().getString("storageSaveError"));
+            System.out.println(medievalEconomy.getConfig().getString("storageSaveError"));
         }
     }
 
     public void saveCoinpurses() {
-        for (Coinpurse purse : main.coinpurses) {
+        for (Coinpurse purse : medievalEconomy.coinpurses) {
             purse.save();
         }
     }
@@ -63,27 +63,27 @@ public class StorageSubsystem {
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
-                Coinpurse temp = new Coinpurse(main);
+                Coinpurse temp = new Coinpurse(medievalEconomy);
                 temp.load(nextName);
 
                 // existence check
                 int index = -1;
-                for (int i = 0; i < main.coinpurses.size(); i++) {
-                    if (main.coinpurses.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
+                for (int i = 0; i < medievalEconomy.coinpurses.size(); i++) {
+                    if (medievalEconomy.coinpurses.get(i).getPlayerUUID().equals(temp.getPlayerUUID())) {
                         index = i;
                     }
                 }
                 if (index != -1) {
-                    main.coinpurses.remove(index);
+                    medievalEconomy.coinpurses.remove(index);
                 }
 
-                main.coinpurses.add(temp);
+                medievalEconomy.coinpurses.add(temp);
             }
 
             loadReader.close();
             System.out.println("Coinpurse records successfully loaded.");
         } catch (FileNotFoundException e) {
-            System.out.println(main.getConfig().getString("storageLoadError"));
+            System.out.println(medievalEconomy.getConfig().getString("storageLoadError"));
             // e.printStackTrace();
         }
     }
@@ -96,15 +96,15 @@ public class StorageSubsystem {
             // actual loading
             while (loadReader.hasNextLine()) {
                 String nextName = loadReader.nextLine();
-                Coinpurse temp = new Coinpurse(main);
+                Coinpurse temp = new Coinpurse(medievalEconomy);
                 temp.legacyLoad(nextName);
 
-                main.coinpurses.add(temp);
+                medievalEconomy.coinpurses.add(temp);
             }
 
             loadReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println(main.getConfig().getString("storageLoadError"));
+            System.out.println(medievalEconomy.getConfig().getString("storageLoadError"));
             // e.printStackTrace();
         }
 

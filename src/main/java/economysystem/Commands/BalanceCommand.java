@@ -1,17 +1,17 @@
 package economysystem.Commands;
 
 import economysystem.Objects.Coinpurse;
-import economysystem.Main;
+import economysystem.MedievalEconomy;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class BalanceCommand {
 
-    Main main = null;
+    MedievalEconomy medievalEconomy = null;
 
-    public BalanceCommand(Main plugin) {
-        main = plugin;
+    public BalanceCommand(MedievalEconomy plugin) {
+        medievalEconomy = plugin;
     }
 
     public void run(CommandSender sender) {
@@ -21,19 +21,19 @@ public class BalanceCommand {
             // permission check
             if (player.hasPermission("medievaleconomy.balance") || player.hasPermission("medievaleconomy.default")) {
 
-                Coinpurse purse = main.utilities.getPlayersCoinPurse(player.getUniqueId());
+                Coinpurse purse = medievalEconomy.utilities.getPlayersCoinPurse(player.getUniqueId());
 
                 if (purse != null) {
 
                     int num = purse.getCoins();
 
-                    player.sendMessage(ChatColor.GREEN + main.getConfig().getString("balanceTextStart") + num + main.getConfig().getString("balanceTextEnd"));
+                    player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("balanceTextStart") + num + medievalEconomy.getConfig().getString("balanceTextEnd"));
 
                 }
 
             }
             else {
-                player.sendMessage(ChatColor.RED + main.getConfig().getString("balanceNoPermission"));
+                player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("balanceNoPermission"));
             }
 
         }
