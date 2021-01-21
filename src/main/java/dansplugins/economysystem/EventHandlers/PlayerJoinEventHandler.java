@@ -1,7 +1,7 @@
-package economysystem.EventHandlers;
+package dansplugins.economysystem.EventHandlers;
 
-import economysystem.Objects.Coinpurse;
-import economysystem.MedievalEconomy;
+import dansplugins.economysystem.Objects.Coinpurse;
+import dansplugins.economysystem.MedievalEconomy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerJoinEvent;

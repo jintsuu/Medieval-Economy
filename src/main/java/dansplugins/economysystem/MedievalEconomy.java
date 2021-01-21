@@ -1,13 +1,9 @@
-package economysystem;
+package dansplugins.economysystem;
 
-import economysystem.EventHandlers.PlayerDeathEventHandler;
-import economysystem.EventHandlers.PlayerJoinEventHandler;
-import economysystem.Objects.Coinpurse;
-import economysystem.Subsystems.CommandSubsystem;
-import economysystem.Subsystems.ConfigSubsystem;
-import economysystem.Subsystems.StorageSubsystem;
-import economysystem.Subsystems.UtilitySubsystem;
-import economysystem.bStats.Metrics;
+import dansplugins.economysystem.EventHandlers.PlayerDeathEventHandler;
+import dansplugins.economysystem.EventHandlers.PlayerJoinEventHandler;
+import dansplugins.economysystem.Objects.Coinpurse;
+import dansplugins.economysystem.bStats.Metrics;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,13 +24,13 @@ import static org.bukkit.Bukkit.getOnlinePlayers;
 public final class MedievalEconomy extends JavaPlugin implements Listener {
 
     // version
-    public String version = "v1.1.1";
+    public String version = "v1.2-beta-1";
 
     // subsystems
-    public StorageSubsystem storage = new StorageSubsystem(this);
-    public CommandSubsystem commands = new CommandSubsystem(this);
-    public UtilitySubsystem utilities = new UtilitySubsystem(this);
-    public ConfigSubsystem config = new ConfigSubsystem(this);
+    public StorageManager storage = new StorageManager(this);
+    public CommandInterpreter commands = new CommandInterpreter(this);
+    public Utilities utilities = new Utilities(this);
+    public ConfigManager config = new ConfigManager(this);
 
     // saved lists
     public ArrayList<Coinpurse> coinpurses = new ArrayList<>();

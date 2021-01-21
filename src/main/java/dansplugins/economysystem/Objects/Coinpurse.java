@@ -1,6 +1,6 @@
-package economysystem.Objects;
+package dansplugins.economysystem.Objects;
 
-import economysystem.MedievalEconomy;
+import dansplugins.economysystem.MedievalEconomy;
 
 import java.io.File;
 import java.io.FileNotFoundException;

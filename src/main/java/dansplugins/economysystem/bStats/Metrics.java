@@ -1,4 +1,4 @@
-package economysystem.bStats;
+package dansplugins.economysystem.bStats;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
