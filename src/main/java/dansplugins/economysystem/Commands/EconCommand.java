@@ -43,29 +43,30 @@ public class EconCommand {
                     System.out.println(medievalEconomy.getConfig().getString("createCurrencyNoRunFromConsole"));
                 }
             }
+
+            if (args[0].equalsIgnoreCase("reload")) {
+                if (sender instanceof Player) {
+                    Player player = (Player) sender;
+                    if (player.hasPermission("medievaleconomy.reload") || player.hasPermission("medievaleconomy.admin")) {
+                        medievalEconomy.reloadConfig();
+                        player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("configReloadedText"));
+                    }
+                    else {
+                        player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("reloadNoPermission"));
+                    }
+                }
+                else {
+                    medievalEconomy.reloadConfig();
+                    System.out.println(medievalEconomy.getConfig().getString("configReloadedText"));
+                }
+
+            }
+
         }
         else {
             if (sender instanceof Player) {
                 medievalEconomy.utilities.sendHelpMessage((Player) sender);
             }
-        }
-
-        if (args[0].equalsIgnoreCase("reload")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                if (player.hasPermission("medievaleconomy.reload") || player.hasPermission("medievaleconomy.admin")) {
-                    medievalEconomy.reloadConfig();
-                    player.sendMessage(ChatColor.GREEN + medievalEconomy.getConfig().getString("configReloadedText"));
-                }
-                else {
-                    player.sendMessage(ChatColor.RED + medievalEconomy.getConfig().getString("reloadNoPermission"));
-                }
-            }
-            else {
-                medievalEconomy.reloadConfig();
-                System.out.println(medievalEconomy.getConfig().getString("configReloadedText"));
-            }
-
         }
     }
 

@@ -24,7 +24,7 @@ import static org.bukkit.Bukkit.getOnlinePlayers;
 public final class MedievalEconomy extends JavaPlugin implements Listener {
 
     // version
-    public String version = "v1.2-beta-1";
+    public String version = "v1.2-beta-2";
 
     // subsystems
     public StorageManager storage = new StorageManager(this);
