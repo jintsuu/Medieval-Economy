@@ -1,14 +1,12 @@
-package economysystem.Subsystems;
-
-import economysystem.MedievalEconomy;
+package dansplugins.economysystem;
 
 import java.io.File;
 
-public class ConfigSubsystem {
+public class ConfigManager {
 
     MedievalEconomy medievalEconomy = null;
 
-    public ConfigSubsystem(MedievalEconomy plugin) {
+    public ConfigManager(MedievalEconomy plugin) {
         medievalEconomy = plugin;
     }
 
