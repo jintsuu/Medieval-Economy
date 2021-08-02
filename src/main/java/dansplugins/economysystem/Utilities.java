@@ -3,6 +3,7 @@ package dansplugins.economysystem;
 import dansplugins.economysystem.Objects.Coinpurse;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -49,7 +50,13 @@ public class Utilities {
         lore.add(ChatColor.GRAY + "" + ChatColor.ITALIC + medievalEconomy.getConfig().getString("currencyItemLoreLineThree"));
 
         meta.setLore(lore);
+
         currencyItem.setItemMeta(meta);
+        //i fix :D
+        ItemMeta enchantsMeta = currencyItem.getItemMeta();
+        enchantsMeta.addEnchant(Enchantment.DURABILITY, 10, true);
+
+        currencyItem.setItemMeta(enchantsMeta);
 
         return currencyItem;
     }
